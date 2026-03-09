@@ -52,8 +52,16 @@ for n=1:length(orca_log)
       props.natoms=m-1;
       disp('ORCA import: found atomic coordinates.');
    end
+
+   % Read the dipole moment
+   if (numel(orca_log{n})>19)&&...
+       strcmp(orca_log{n}(1:19),'Total Dipole Moment')
+       S=textscan(orca_log{n}(25:end),'%f %f %f');
+       props.dip_moment=[S{1} S{2} S{3}];
+       disp('ORCA import: found electric dipole moment.');
+   end
    
-   % Read the g-tensor
+   % Read the g-tensor - BROKEN BY ORCA SYNTAX CHANGE
    if strcmp(orca_log{n},'The g-matrix:')
       props.g_tensor.matrix=zeros(3,3);
       S=textscan(orca_log{n+1},'%f %f %f'); props.g_tensor.matrix(1,:)=cell2mat(S);
@@ -64,7 +72,7 @@ for n=1:length(orca_log)
       disp('ORCA import: found the g-tensor.');
    end
    
-   % Read HFCs and EFGs
+   % Read HFCs and EFGs - BROKEN BY ORCA SYNTAX CHANGE
    if strfind(orca_log{n},'Nucleus ')==1
        atom=textscan(orca_log{n},'%*s %f%*s');
        idx=atom{:}(1)+1;
