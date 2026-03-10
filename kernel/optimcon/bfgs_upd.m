@@ -32,68 +32,54 @@ function H=bfgs_upd(H,dx,dg)
 % Check consistency
 grumble(H,dx,dg);
 
-% Convert increments into column vectors
-dx=dx(:); dg=dg(:);
+% Increments into columns
+dx=dx(:); dg=dg(:); y=-dg;
 
 % Curvature tolerance
 curv_rel_tol=0.01;
 
 % Relevant inner products
-dgdx=dg'*dx;
-dgdg=dg'*dg;
-dxdx=dx'*dx;
+dgdx=dg'*dx; dgdg=dg'*dg; dxdx=dx'*dx;
 
 % Curvature pair validation
 pair_ok=isfinite(dgdx)&&isfinite(dgdg)&&isfinite(dxdx)&&...
         (dgdg>0)&&(dxdx>0)&&(dgdx<-curv_rel_tol*sqrt(dgdg*dxdx));
 
-% Return identity if first pair is bad
-if isempty(H)&&(~pair_ok)
-    H=eye(numel(dx));
-    return;
-end
+% Return identity matrix if first pair is bad
+if isempty(H)&&(~pair_ok), H=eye(numel(dx)); return; end
 
-% Return unchanged Hessian if pair is bad
-if (~isempty(H))&&(~pair_ok)
-    H=real((H+H')/2);
-    return;
-end
-
-% Convert gradient increment sign for maximisation
-y=-dg;
+% Return unchanged if pair is bad
+if (~isempty(H))&&(~pair_ok), H=real((H+H')/2); return; end
 
 % Initialise Hessian estimate when absent
 if isempty(H)
 
     % Relevant inner products
-    ydx=y'*dx;
-    yyy=y'*y;
+    ydx=y'*dx; yyy=y'*y;
 
     % Unit matrix scaling
-    if (~isfinite(ydx))||(~isfinite(yyy))||(ydx<=eps)||(yyy<=0)
+    if (~isfinite(ydx))||...
+       (~isfinite(yyy))||...
+       (ydx<=eps)||(yyy<=0)
         gamma=1;
     else
         gamma=yyy/ydx;
     end
 
-    % Initial pseudo-Hessian guess
+    % Initial Hessian guess
     H=gamma*eye(numel(dx));
 
 end
 
 % Build BFGS components
-ydx=y'*dx;
-Hdx=H*dx;
-dxHdx=dx'*Hdx;
+ydx=y'*dx; Hdx=H*dx; dxHdx=dx'*Hdx;
 
-% Return unchanged Hessian if update is numerically unsafe
+% Return unchanged if unsafe
 if (~isfinite(ydx))||(ydx<=eps)
-    H=real((H+H')/2);
-    return;
+    H=real((H+H')/2); return;
 end
 if (~isfinite(dxHdx))||(dxHdx<=eps)
-    H=real((H+H')/2);
-    return;
+    H=real((H+H')/2); return;
 end
 
 % Plain BFGS Hessian update
@@ -125,8 +111,8 @@ if ~isempty(H)
 end
 end
 
-% The easiest way to solve a problem is to deny it exists.
+% The easiest way to solve a problem
+% is to deny it exists.
 %
 % Isaac Asimov
-
 
