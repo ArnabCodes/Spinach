@@ -15,7 +15,7 @@
 %
 % Note: central second-order phase-difference approximation is used in the
 %       interior, and second-order one-sided approximations are used at the
-%       boundaries
+%       boundaries; all formulas use one-step phase differences
 %
 % ilya.kuprov@weizmann.ac.il
 %
@@ -33,19 +33,21 @@ signal_col=signal(:);
 freq=zeros(size(signal_col));
 
 % Compute interior points using central second-order formula
-phase_ctr=angle(signal_col(3:end).*conj(signal_col(1:end-2)));
-freq(2:end-1)=phase_ctr/(4*pi*dt);
+% from one-step phase differences
+phase_fwd=angle(signal_col(3:end).*conj(signal_col(2:end-1)));
+phase_bwd=angle(signal_col(2:end-1).*conj(signal_col(1:end-2)));
+freq(2:end-1)=(phase_fwd+phase_bwd)/(4*pi*dt);
 
 % Compute first point using forward second-order formula
-phase_12=angle(signal_col(2)*conj(signal_col(1)));
-phase_13=angle(signal_col(3)*conj(signal_col(1)));
-freq(1)=(4*phase_12-phase_13)/(4*pi*dt);
+phase_01=angle(signal_col(2)*conj(signal_col(1)));
+phase_12=angle(signal_col(3)*conj(signal_col(2)));
+freq(1)=(3*phase_01-phase_12)/(4*pi*dt);
 
 % Compute last point using backward second-order formula
 npts=numel(signal_col);
 phase_n1=angle(signal_col(npts)*conj(signal_col(npts-1)));
-phase_n2=angle(signal_col(npts)*conj(signal_col(npts-2)));
-freq(end)=(4*phase_n1-phase_n2)/(4*pi*dt);
+phase_n2=angle(signal_col(npts-1)*conj(signal_col(npts-2)));
+freq(end)=(3*phase_n1-phase_n2)/(4*pi*dt);
 
 % Restore the shape of the input vector
 freq=reshape(freq,size(signal));
