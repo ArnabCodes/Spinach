@@ -1107,9 +1107,8 @@ if isfield(control,'budget')
 
     % Input validation
     if (~isnumeric(control.budget))||(~isreal(control.budget))||...
-       (~isscalar(control.budget))||(mod(control.budget,1)~=0)||...
-       (control.budget<1)
-        error('control.budget must be a positive real integer.');
+       (~isscalar(control.budget))||(control.budget<=0)
+        error('control.budget must be a positive real scalar.');
     end
 
     % Absorb ensemble budget
@@ -1125,8 +1124,13 @@ end
 
 % Inform the user
 if isfinite(spin_system.control.budget)
-    report(spin_system,[pad('Ensemble budget',60) ...
-                        int2str(spin_system.control.budget)]);
+    if spin_system.control.budget>1
+        report(spin_system,[pad('Ensemble budget',60) ...
+                            num2str(spin_system.control.budget,'%.9g')]);
+    else
+        report(spin_system,[pad('Ensemble budget fraction',60) ...
+                            num2str(spin_system.control.budget,'%.9g')]);
+    end
 else
     report(spin_system,[pad('Ensemble budget',60) 'all']);
 end

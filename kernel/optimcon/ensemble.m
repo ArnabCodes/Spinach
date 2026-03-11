@@ -91,6 +91,12 @@ else
     ens_budget=Inf;
 end
 
+% Convert fractional budget into sample count
+if isfinite(ens_budget)&&(ens_budget<=1)
+    ens_budget=round(n_cases*ens_budget);
+    ens_budget=max(1,ens_budget);
+end
+
 % Apply ensemble budget
 if ens_budget<n_cases
 
