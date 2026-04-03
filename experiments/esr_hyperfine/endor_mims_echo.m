@@ -95,6 +95,13 @@ end
 if ~ismember(spin_system.bas.formalism,{'sphten-liouv','zeeman-liouv'})
     error('this function is only available in Liouville space.');
 end
+if ~isfield(parameters,'spins')
+    error('working spins must be specified in parameters.spins field.');
+end
+if (~iscell(parameters.spins))||(numel(parameters.spins)~=1)||...
+   (~ischar(parameters.spins{1}))
+    error('parameters.spins must be a one-element cell array of character strings.');
+end
 if ~isfield(parameters,'n_dur')
     error('nuclear pulse duration must be specified in parameters.n_dur field.');
 end
@@ -112,8 +119,18 @@ end
 if ~isfield(parameters,'electrons')
     error('electrons must be enumerated in parameters.electrons field.');
 end
+if (~isnumeric(parameters.electrons))||(~isreal(parameters.electrons))||...
+   (~isrow(parameters.electrons))||(numel(parameters.electrons)<1)||...
+   (any(mod(parameters.electrons,1)~=0))
+    error('parameters.electrons must be a row vector of positive integers.');
+end
 if ~isfield(parameters,'nsteps')
     error('number of steps in the detection period must be specified in parameters.nsteps field.');
+end
+if (~isnumeric(parameters.nsteps))||(~isreal(parameters.nsteps))||...
+   (~isscalar(parameters.nsteps))||(mod(parameters.nsteps,1)~=0)||...
+   (parameters.nsteps<1)
+    error('parameters.nsteps must be a positive real integer.');
 end
 end
 

@@ -27,6 +27,10 @@
 %
 %     parameters.coil       - detection state
 %
+%     parameters.sweep      - sweep width for the FID, Hz
+%
+%     parameters.npoints    - number of points in the FID
+%
 %     H - Hamiltonian matrix, received from context function
 %
 %     R - relaxation superoperator, received from context function
@@ -48,7 +52,7 @@
 function fid=cp_acquire_soft(spin_system,parameters,H,R,K)
 
 % Check consistency
-grumble(parameters,H,R,K);
+grumble(spin_system,parameters,H,R,K);
 
 % Compose Liouvillian
 L=H+1i*R+1i*K;
@@ -85,19 +89,44 @@ fid=evolution(spin_system,L,parameters.coil,rho,...
 end
 
 % Consistency enforcement
-function grumble(parameters,H,R,K)
+function grumble(spin_system,parameters,H,R,K)
 if (~isnumeric(H))||(~isnumeric(R))||(~isnumeric(K))||...
    (~ismatrix(H))||(~ismatrix(R))||(~ismatrix(K))
     error('H, R and K arguments must be matrices.');
 end
-if ~isfield(parameters,'hi_pwr')||(parameters.hi_pwr<=0)
+if (~all(size(H)==size(R)))||(~all(size(R)==size(K)))
+    error('H, R and K matrices must have the same dimension.');
+end
+if ~isfield(parameters,'spins')
+    error('working spins must be specified in parameters.spins variable.');
+end
+if (~iscell(parameters.spins))||(numel(parameters.spins)~=2)||...
+   (~all(cellfun(@ischar,parameters.spins)))
+    error('parameters.spins must be a two-element cell array of character strings.');
+end
+if ~isfield(parameters,'hi_pwr')
     error('high RF amplitude must be specified in parameters.hi_pwr variable.');
+end
+if (~isnumeric(parameters.hi_pwr))||(~isscalar(parameters.hi_pwr))||...
+   (~isreal(parameters.hi_pwr))||(parameters.hi_pwr<=0)
+    error('parameters.hi_pwr must be a positive real scalar.');
 end
 if ~isfield(parameters,'cp_pwr')
     error('CP RF amplitudes must be specified in parameters.cp_pwr variable.');
 end
+if (~isnumeric(parameters.cp_pwr))||(~isreal(parameters.cp_pwr))||...
+   (numel(parameters.cp_pwr)~=2)
+    error('parameters.cp_pwr must be a two-element vector of real numbers.');
+end
 if ~isfield(parameters,'cp_dur')
     error('CP duration must be specified in parameters.cp_dur variable.');
+end
+if (~isnumeric(parameters.cp_dur))||(~isscalar(parameters.cp_dur))||...
+   (~isreal(parameters.cp_dur))||(parameters.cp_dur<=0)
+    error('parameters.cp_dur must be a positive real scalar.');
+end
+if any(~ismember(parameters.spins,spin_system.comp.isotopes))
+    error('parameters.spins contains isotopes that are not present in the system.');
 end
 if ~isfield(parameters,'rho0')
     error('initial state must be specified in parameters.rho0 variable.');

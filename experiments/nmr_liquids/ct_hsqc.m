@@ -10,11 +10,11 @@
 %
 %     parameters.spins              {F1 F2} nuclei (e.g. '13C','1H')
 %
-%     parameters.decouple_f2        nuclei to decouple in F2, e.g. 
-%                                   {'15N','13C'}
+%     parameters.decouple_f2        [optional] nuclei to decouple
+%                                   in F2, e.g. {'15N','13C'}
 %
-%     parameters.decouple_f1        nuclei to decouple in F1, e.g. 
-%                                   {'1H','13C'}
+%     parameters.decouple_f1        [optional] nuclei to decouple 
+%                                   in F1, e.g. {'1H','13C'}
 %
 %     parameters.J                  working scalar coupling, Hz
 %
@@ -165,21 +165,39 @@ if ~isfield(parameters,'sweep')
     error('sweep width should be specified in parameters.sweep variable.');
 elseif numel(parameters.sweep)~=2
     error('parameters.sweep array should have exactly two elements.');
+elseif (~isnumeric(parameters.sweep))||(~isreal(parameters.sweep))||...
+       any(parameters.sweep<=0)
+    error('parameters.sweep must contain two positive real numbers.');
 end
 if ~isfield(parameters,'spins')
     error('working spins should be specified in parameters.spins variable.');
 elseif numel(parameters.spins)~=2
     error('parameters.spins cell array should have exactly two elements.');
+elseif (~iscell(parameters.spins))||(~ischar(parameters.spins{1}))||...
+       (~ischar(parameters.spins{2}))
+    error('parameters.spins must be a two-element cell array of character strings.');
+end
+if isfield(parameters,'decouple_f2')&&(~iscell(parameters.decouple_f2))
+    error('parameters.decouple_f2, if specified, must be a cell array.');
+end
+if isfield(parameters,'decouple_f1')&&(~iscell(parameters.decouple_f1))
+    error('parameters.decouple_f1, if specified, must be a cell array.');
 end
 if ~isfield(parameters,'npoints')
     error('number of points should be specified in parameters.npoints variable.');
 elseif numel(parameters.npoints)~=2
     error('parameters.npoints array should have exactly two elements.');
+elseif (~isnumeric(parameters.npoints))||(~isreal(parameters.npoints))||...
+       any(parameters.npoints<1)||any(mod(parameters.npoints,1)~=0)
+    error('parameters.npoints must contain two positive integers.');
 end
 if ~isfield(parameters,'J')
     error('scalar coupling should be specified in parameters.J variable.');
 elseif numel(parameters.J)~=1
     error('parameters.J array should have exactly one element.');
+elseif (~isnumeric(parameters.J))||(~isreal(parameters.J))||...
+       (parameters.J==0)
+    error('parameters.J must be a non-zero real scalar.');
 end
 end
 

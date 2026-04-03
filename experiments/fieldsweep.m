@@ -10,6 +10,10 @@
 %                             subdivided spherical quadrature
 %                             grid, 6 is a good choice
 %
+%     parameters.spins     -  a one-element cell array giving
+%                             the spin to couple to the mi-
+%                             crowave field, e.g. {'E'}
+%
 %     parameters.mw_freq   -  microwave frequency, Hz
 %
 %     parameters.fwhm      -  line FWHM, Tesla
@@ -17,6 +21,18 @@
 %     parameters.window    -  field sweep window, [Bmin Bmax]
 %
 %     parameters.npoints   -  number of points in the sweep
+%
+%     parameters.tm_tol    -  relative transition moment
+%                             tolerance passed to eigen-
+%                             fields.m
+%
+%     parameters.rspt_order - perturbation theory order
+%                             passed to rspt_eig.m, Inf
+%                             for exact diagonalisation
+%
+%     parameters.int_tol   -  recursive triangle inte-
+%                             gration tolerance passed
+%                             to voitlander.m
 %
 % Outputs:
 %
@@ -114,6 +130,13 @@ if (~isnumeric(parameters.grid))||(~isscalar(parameters.grid))||...
    (~isreal(parameters.grid))||(parameters.grid<=0)
     error('parameters.grid must be a positive real integer.');
 end
+if ~isfield(parameters,'spins')
+    error('spin to couple to the microwave field must be specified in parameters.spins variable.');
+end
+if (~iscell(parameters.spins))||(numel(parameters.spins)~=1)||...
+   (~ischar(parameters.spins{1}))
+    error('parameters.spins must be a one-element cell array of character strings.');
+end
 if ~isfield(parameters,'mw_freq')
     error('MW frequency should be specified in parameters.mw_freq variable.');
 end
@@ -132,7 +155,8 @@ if ~isfield(parameters,'npoints')
     error('number of points should be specified in parameters.npoints variable.');
 end
 if (~isnumeric(parameters.npoints))||(~isscalar(parameters.npoints))||...
-   (~isreal(parameters.npoints))||(parameters.npoints<=0)
+   (~isreal(parameters.npoints))||(parameters.npoints<=0)||...
+   (mod(parameters.npoints,1)~=0)
     error('parameters.npoints must be a positive real integer.');
 end
 if ~isfield(parameters,'window')
@@ -141,6 +165,28 @@ end
 if (~isnumeric(parameters.window))||(numel(parameters.window)~=2)||...
    (~isreal(parameters.window))||(parameters.window(2)<=parameters.window(1))
     error('parameters.window must contain two ascending numbers.');
+end
+if ~isfield(parameters,'tm_tol')
+    error('transition moment tolerance must be specified in parameters.tm_tol variable.');
+end
+if (~isnumeric(parameters.tm_tol))||(~isscalar(parameters.tm_tol))||...
+   (~isreal(parameters.tm_tol))||(parameters.tm_tol<=0)
+    error('parameters.tm_tol must be a positive real scalar.');
+end
+if ~isfield(parameters,'rspt_order')
+    error('perturbation theory order must be specified in parameters.rspt_order variable.');
+end
+if (~isnumeric(parameters.rspt_order))||(~isscalar(parameters.rspt_order))||...
+   (~isreal(parameters.rspt_order))||((mod(parameters.rspt_order,1)~=0)&&...
+   (~isinf(parameters.rspt_order)))||(parameters.rspt_order<0)
+    error('parameters.rspt_order must be a non-negative integer or Inf.');
+end
+if ~isfield(parameters,'int_tol')
+    error('integration tolerance must be specified in parameters.int_tol variable.');
+end
+if (~isnumeric(parameters.int_tol))||(~isscalar(parameters.int_tol))||...
+   (~isreal(parameters.int_tol))||(parameters.int_tol<=0)
+    error('parameters.int_tol must be a positive real scalar.');
 end
 end
 

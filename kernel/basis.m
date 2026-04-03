@@ -510,6 +510,35 @@ if ismember(spin_system.bas.formalism,{'zeeman-hilb','zeeman-wavef'})
     
 end
 
+% Preload Lie algebra structure tables
+if strcmp(spin_system.bas.formalism,'sphten-liouv')
+
+    % Inform the user
+    report(spin_system,'caching Lie structure tables...');
+
+    % Find the spin multiplicities present
+    unique_mults=unique(spin_system.comp.mults);
+
+    % Preallocate the structure table arrays
+    spin_system.bas.lpst=cell(max(unique_mults),1);
+    spin_system.bas.rpst=cell(max(unique_mults),1);
+
+    % Fill the arrays
+    for n=setdiff(unique_mults,1)
+
+        % Load from disk or compute
+        [lpst,rpst]=ist_product_table(n);
+
+        % Left product structure table
+        spin_system.bas.lpst{n}=lpst;
+
+        % Right product structure table
+        spin_system.bas.rpst{n}=rpst;
+
+    end
+
+end
+
 % Hash the basis descriptor for caching tools later
 if ismember('op_cache',spin_system.sys.enable)||...
    ismember('ham_cache',spin_system.sys.enable)
@@ -518,7 +547,7 @@ end
 
 end
 
-% Grumble function
+% Consistency enforcement
 function grumble(spin_system,bas)
 
 % Check bas.formalism
@@ -631,7 +660,7 @@ if strcmp(bas.formalism,'sphten-liouv')
         if (~islogical(bas.manual))&&(~isnumeric(bas.manual))
             error('bas.manual must be a logical matrix.');
         elseif size(bas.manual,2)~=spin_system.comp.nspins
-            error('the number of rows in bas.manual must be equal to the number of spins in the system.')
+            error('the number of columns in bas.manual must be equal to the number of spins in the system.');
         end
     end
     
@@ -644,11 +673,47 @@ if strcmp(bas.formalism,'sphten-liouv')
     
     % Check bas.longitudinals
     if isfield(bas,'longitudinals')
-        if (~iscell(bas.longitudinals))||any(~cellfun(@ischar,bas.longitudinals))
-            error('bas.longitudinals must be a cell array of strings.');
+        if ~iscell(bas.longitudinals)
+            error('bas.longitudinals must be a cell array.');
         end
-        if any(~ismember(bas.longitudinals,spin_system.comp.isotopes))
-            error('bas.longitudinals refers to spins that are not present in the system.');
+        for n=1:numel(bas.longitudinals)
+            if isnumeric(bas.longitudinals{n})
+                if (~isreal(bas.longitudinals{n}))||...
+                   any(mod(bas.longitudinals{n},1)~=0)||...
+                   any(bas.longitudinals{n}<1)||...
+                   any(bas.longitudinals{n}>spin_system.comp.nspins)
+                    error('numeric entries in bas.longitudinals must be positive integers within the system bounds.');
+                end
+            elseif ischar(bas.longitudinals{n})
+                if ~ismember(bas.longitudinals{n},spin_system.comp.isotopes)
+                    error('bas.longitudinals refers to spins that are not present in the system.');
+                end
+            else
+                error('bas.longitudinals must contain isotope strings or vectors of spin numbers.');
+            end
+        end
+    end
+    
+    % Check bas.zero_quantum
+    if isfield(bas,'zero_quantum')
+        if ~iscell(bas.zero_quantum)
+            error('bas.zero_quantum must be a cell array.');
+        end
+        for n=1:numel(bas.zero_quantum)
+            if isnumeric(bas.zero_quantum{n})
+                if (~isreal(bas.zero_quantum{n}))||...
+                   any(mod(bas.zero_quantum{n},1)~=0)||...
+                   any(bas.zero_quantum{n}<1)||...
+                   any(bas.zero_quantum{n}>spin_system.comp.nspins)
+                    error('numeric entries in bas.zero_quantum must be positive integers within the system bounds.');
+                end
+            elseif ischar(bas.zero_quantum{n})
+                if ~ismember(bas.zero_quantum{n},spin_system.comp.isotopes)
+                    error('bas.zero_quantum refers to spins that are not present in the system.');
+                end
+            else
+                error('bas.zero_quantum must contain isotope strings or vectors of spin numbers.');
+            end
         end
     end
     

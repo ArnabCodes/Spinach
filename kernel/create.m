@@ -36,8 +36,8 @@ if strcmp(call_stack(end).name,'create')&&(~isworkernode)
           'there will be no end to confusion. Add a [function ... end] block.');
 end
 
-% Close all open files
-fclose('all');
+% On head node, close all open files
+if ~isworkernode, fclose('all'); end
 
 % Locate the root and run sanity checks
 if isempty(which('existentials'))
@@ -54,7 +54,7 @@ else
     
 end
 
-% Run overrides
+% Overrides
 autoexec;
 
 % Rare, but it can happen
@@ -166,8 +166,8 @@ end
 if ~isempty(spin_system.sys.disable)
     report(spin_system,'WARNING: the following functionality is disabled by the user');
     if ismember('hygiene',spin_system.sys.disable),   report(spin_system,'         > health checks at start-up'); end
-    if ismember('pt',spin_system.sys.disable),        report(spin_system,'         > automatic detection of non-interacting subspaces'); end
-    if ismember('zte',spin_system.sys.disable),       report(spin_system,'         > automatic elimination of unpopulated states'); end
+    if ismember('pt',spin_system.sys.disable),        report(spin_system,'         > detection of non-interacting subspaces'); end
+    if ismember('zte',spin_system.sys.disable),       report(spin_system,'         > elimination of unpopulated states'); end
     if ismember('symmetry',spin_system.sys.disable),  report(spin_system,'         > permutation symmetry factorisation'); end
     if ismember('krylov',spin_system.sys.disable),    report(spin_system,'         > Krylov propagation inside evolution() function'); end
     if ismember('clean-up',spin_system.sys.disable),  report(spin_system,'         > sparse array clean-up'); end
@@ -195,8 +195,8 @@ if ~isempty(spin_system.sys.enable)
     if ismember('sodd',spin_system.sys.enable),       report(spin_system,'         > spin-orbit corrections to dipolar couplings'); end
 end
 
-% Get a unique job identifier
-spin_system.sys.job_id=md5_hash([clock feature('getpid')]);      %#ok<CLOCK> 
+% Get a unique job identifier by hashing the clock and the process identifier
+spin_system.sys.job_id=md5_hash([posixtime(datetime('now')) feature('getpid')]);      
 report(spin_system,['job identifier: ' spin_system.sys.job_id]);
 
 % Create a unique scratch subdirectory for the current job
@@ -204,7 +204,7 @@ spin_system.sys.job_dir=[spin_system.sys.scratch filesep 'spinach_job_' ...
                          spin_system.sys.job_id];
 if ~isfolder(spin_system.sys.job_dir), mkdir(spin_system.sys.job_dir); end
 
-% Set up head node
+% Head node setup
 if ~isworkernode
     
     % Shuffle the random number generator

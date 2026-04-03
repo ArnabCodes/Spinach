@@ -134,8 +134,29 @@ if numel(parameters.decouple)>0
     if any(~ismember(parameters.decouple,spin_system.comp.isotopes))
         error('parameters.decouple contains isotopes that are not present in the system.');
     end
-    if ~ismember(spin_system.bas.formalism,{'zeeman-liouv'})
+    if ~ismember(spin_system.bas.formalism,{'sphten-liouv'})
         error('analytical decoupling is only available for sphten-liouv formalism.');
+    end
+end
+if isfield(parameters,'echo_time')
+    if (~isnumeric(parameters.echo_time))||(~isreal(parameters.echo_time))||...
+       (~isscalar(parameters.echo_time))||(parameters.echo_time<=0)
+        error('parameters.echo_time must be a positive real scalar.');
+    end
+    if ~isfield(parameters,'echo_oper')
+        error('echo pulse operator must be specified in parameters.echo_oper variable.');
+    end
+    if ~isfield(parameters,'echo_angle')
+        error('echo pulse angle must be specified in parameters.echo_angle variable.');
+    end
+    if (~isnumeric(parameters.echo_angle))||(~isreal(parameters.echo_angle))||...
+       (~isscalar(parameters.echo_angle))
+        error('parameters.echo_angle must be a real scalar.');
+    end
+end
+if isfield(parameters,'echo_oper')||isfield(parameters,'echo_angle')
+    if ~isfield(parameters,'echo_time')
+        error('echo time must be specified in parameters.echo_time variable.');
     end
 end
 end

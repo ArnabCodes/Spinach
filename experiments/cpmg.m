@@ -4,6 +4,12 @@
 %
 % Parameters:
 %
+%    parameters.rho0     - initial state
+%
+%    parameters.coil     - detection state
+%
+%    parameters.pulse_op - pulse operator
+%
 %    parameters.nloops   - number of CPMG loops
 %
 %    parameters.timestep - time step
@@ -63,6 +69,20 @@ if (~isnumeric(H))||(~isnumeric(R))||(~isnumeric(K))||(~ismatrix(H))||(~ismatrix
 end
 if (~all(size(H)==size(R)))||(~all(size(R)==size(K)))
     error('H, R and K matrices must have the same dimension.');
+end
+if ~isfield(parameters,'nloops')
+    error('number of CPMG loops should be specified in parameters.nloops variable.');
+end
+if (~isnumeric(parameters.nloops))||(numel(parameters.nloops)~=1)||...
+   (~isreal(parameters.nloops))||(parameters.nloops<1)||(mod(parameters.nloops,1)~=0)
+    error('parameters.nloops should be a positive integer.');
+end
+if ~isfield(parameters,'timestep')
+    error('time step should be specified in parameters.timestep variable.');
+end
+if (~isnumeric(parameters.timestep))||(numel(parameters.timestep)~=1)||...
+   (~isreal(parameters.timestep))||(parameters.timestep<=0)
+    error('parameters.timestep should be a positive real number.');
 end
 if ~isfield(parameters,'npoints')
     error('number of points should be specified in parameters.npoints variable.');

@@ -18,7 +18,9 @@
 %    parameters.theta              the angle of the ideal pulse
 %                                  at the end of each loop
 %
-%    parameters.spins              working spins, e.g. {'1H',13C'}
+%    parameters.rate               RESPIRATION pulse train rate, Hz
+%
+%    parameters.spins              working spins, e.g. {'1H','13C'}
 %
 %    H     - Hamiltonian matrix, received from context function
 %
@@ -40,7 +42,7 @@
 function fid=respiration(spin_system,parameters,H,R,K)
 
 % Check consistency
-grumble(parameters,H,R,K);
+grumble(spin_system,parameters,H,R,K);
 
 % Generate and project pulse operators
 Hp=operator(spin_system,'L+',parameters.spins{1});
@@ -81,10 +83,13 @@ fid=evolution(spin_system,L,parameters.coil,rho,...
 end
 
 % Consistency enforcement
-function grumble(parameters,H,R,K)
+function grumble(spin_system,parameters,H,R,K)
 if (~isnumeric(H))||(~isnumeric(R))||(~isnumeric(K))||...
    (~ismatrix(H))||(~ismatrix(R))||(~ismatrix(K))
     error('H, R and K arguments must be matrices.');
+end
+if (~all(size(H)==size(R)))||(~all(size(R)==size(K)))
+    error('H, R and K matrices must have the same dimension.');
 end
 if ~isfield(parameters,'sweep')
     error('sweep width should be specified in parameters.sweep variable.');
@@ -110,8 +115,34 @@ end
 if ~isfield(parameters,'nloops')
     error('the number of loops must be specified in parameters.nloops variable.');
 end
+if (~isnumeric(parameters.nloops))||(~isreal(parameters.nloops))||...
+   (~isscalar(parameters.nloops))||(mod(parameters.nloops,1)~=0)||...
+   (parameters.nloops<1)
+    error('parameters.nloops should be a positive integer.');
+end
 if ~isfield(parameters,'theta')
     error('short pulse angle must be specified in parameters.theta variable.');
+end
+if (~isnumeric(parameters.theta))||(~isreal(parameters.theta))||...
+   (~isscalar(parameters.theta))
+    error('parameters.theta should be a real scalar.');
+end
+if ~isfield(parameters,'rate')
+    error('RESPIRATION rate must be specified in parameters.rate variable.');
+end
+if (~isnumeric(parameters.rate))||(~isreal(parameters.rate))||...
+   (~isscalar(parameters.rate))||(parameters.rate<=0)
+    error('parameters.rate should be a positive real number.');
+end
+if ~isfield(parameters,'spins')
+    error('working spins must be specified in parameters.spins variable.');
+end
+if (~iscell(parameters.spins))||(numel(parameters.spins)~=2)||...
+   (~all(cellfun(@ischar,parameters.spins)))
+    error('parameters.spins must be a two-element cell array of character strings.');
+end
+if any(~ismember(parameters.spins,spin_system.comp.isotopes))
+    error('parameters.spins contains isotopes that are not present in the system.');
 end
 end
 

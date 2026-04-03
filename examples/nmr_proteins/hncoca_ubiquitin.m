@@ -28,7 +28,7 @@ bas.connectivity='scalar_couplings';
 bas.level=4; bas.space_level=1;
 
 % Algorithmic options
-sys.enable={'greedy'}; % 'gpu'
+sys.enable={}; % 'gpu'
 
 % Spinach housekeeping
 spin_system=create(sys,inter);
@@ -41,6 +41,7 @@ parameters.sweep=[2500 4500 3000];
 parameters.npoints=[64 64 64];
 parameters.zerofill=[256 256 256];
 parameters.axis_units='ppm';
+parameters.tau=[2.25e-3, 2.75e-3, 8.00e-3, 7.00e-3];
 
 % Simulation
 fid=liquid(spin_system,@hncoca,parameters,'nmr');

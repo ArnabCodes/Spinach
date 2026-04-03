@@ -78,6 +78,9 @@ if (~isnumeric(H))||(~isnumeric(R))||(~isnumeric(K))||...
    (~ismatrix(H))||(~ismatrix(R))||(~ismatrix(K))
     error('H, R and K arguments must be matrices.');
 end
+if (~all(size(H)==size(R)))||(~all(size(R)==size(K)))
+    error('H, R and K matrices must have the same dimension.');
+end
 if ~isfield(parameters,'sweep')
     error('sweep width should be specified in parameters.sweep variable.');
 end
@@ -114,6 +117,32 @@ if numel(parameters.decouple)>0
     end
     if ~ismember(spin_system.bas.formalism,{'sphten-liouv'})
         error('analytical decoupling is only available for sphten-liouv formalism.');
+    end
+end
+if isfield(parameters,'homodec_oper')
+    if (~isnumeric(parameters.homodec_oper))||(~ismatrix(parameters.homodec_oper))
+        error('parameters.homodec_oper must be a numeric matrix.');
+    end
+    if size(parameters.homodec_oper,1)~=size(parameters.homodec_oper,2)
+        error('parameters.homodec_oper must be a square matrix.');
+    end
+    if ~isfield(parameters,'homodec_pwr')
+        error('homodecoupling power must be specified in parameters.homodec_pwr field.');
+    end
+    if (~isnumeric(parameters.homodec_pwr))||(~isreal(parameters.homodec_pwr))||...
+       (~isscalar(parameters.homodec_pwr))
+        error('parameters.homodec_pwr must be a real scalar.');
+    end
+end
+if isfield(parameters,'homodec_pwr')
+    if ~isfield(parameters,'homodec_oper')
+        error('homodecoupling operator must be specified in parameters.homodec_oper field.');
+    end
+end
+if isfield(parameters,'dead_time')
+    if (~isnumeric(parameters.dead_time))||(~isreal(parameters.dead_time))||...
+       (~isscalar(parameters.dead_time))||(parameters.dead_time<0)
+        error('parameters.dead_time must be a non-negative real scalar.');
     end
 end
 end

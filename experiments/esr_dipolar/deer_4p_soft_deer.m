@@ -43,6 +43,8 @@
 %
 %    parameters.coil       - detection state
 %
+%    parameters.spins      - irradiated spins, normally {'E'}
+%
 %    parameters.method     - soft puse propagation method,
 %                            'expv' for Krylov propagation,
 %                            'expm' for exponential propa-
@@ -186,6 +188,13 @@ if ~isfield(parameters,'rho0')
 end
 if ~isfield(parameters,'coil')
     error('detection state must be specified in parameters.coil variable.');
+end
+if ~isfield(parameters,'spins')
+    error('irradiated spins must be specified in parameters.spins field.');
+end
+if (~iscell(parameters.spins))||(numel(parameters.spins)~=1)||...
+   (~ischar(parameters.spins{1}))
+    error('parameters.spins must be a one-element cell array of character strings.');
 end
 if ~isfield(parameters,'method')
     error('shaped pulse simulation method must be specified in parameters.method field.');
