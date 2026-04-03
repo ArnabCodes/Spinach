@@ -1,7 +1,7 @@
 % Irreducible spherical tensor expansion of specific Zeeman 
 % energy level projectors. Syntax:
 %
-%           [states,coeffs]=enlev2ist(mult,lvl_num)
+%     [states,coeffs]=enlev2ist(mult,lvl_num,particle)
 %
 % Parameters:
 %

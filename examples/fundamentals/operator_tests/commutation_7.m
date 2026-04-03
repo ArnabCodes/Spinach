@@ -16,7 +16,7 @@ for lvl_num=1:mult
     P(mult-lvl_num+1,mult-lvl_num+1)=1;
 
     % Obtain IST expansion.
-    [states,coeffs]=enlev2ist(mult,lvl_num);
+    [states,coeffs]=enlev2ist(mult,lvl_num,'S');
 
     % Reconstruct operator from IST terms
     P_rec=zeros(mult,mult,'like',1i);
