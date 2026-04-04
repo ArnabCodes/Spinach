@@ -1,6 +1,6 @@
 % TPPM DNP and its special case X-inverse-X (XiX) DNP experiment 
 % from (https://doi.org/10.1021/jacs.1c09900), steady state ver-
-% sion. Syntax (call from powder context):
+% sion. Call from powder context. Syntax:
 %
 %        dnp=xixdnp_steady(spin_system,parameters,H,R,K)
 %

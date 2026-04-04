@@ -81,13 +81,6 @@ sys=rmfield(sys,'stub'); inter=rmfield(inter,'stub');
 
 end
 
-% Consistency enforcement
-function grumble(sys_parts,inter_parts)
-if (~iscell(sys_parts))||(~iscell(inter_parts))
-    error('both inputs must be cell arrays of data structures.');
-end
-end
-
 % Strip a common field from an array of structures
 function parts_array=strip(parts_array,field_name)
     parts_array=cellfun(@(x)x.(field_name),parts_array,'UniformOutput',false);
@@ -202,6 +195,13 @@ else
             error([field_name ' is not present in all subsystems.']);
         end
     end
+end
+end
+
+% Consistency enforcement
+function grumble(sys_parts,inter_parts)
+if (~iscell(sys_parts))||(~iscell(inter_parts))
+    error('both inputs must be cell arrays of data structures.');
 end
 end
 

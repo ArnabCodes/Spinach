@@ -274,7 +274,7 @@ end
 % Header printing function
 function header(spin_system)
 report(spin_system,'==============================================================================================');
-report(spin_system,'Iter  #f   #g   #H   #R    fidelity      penalties     total        alpha     |grad|     DDGA ');
+report(spin_system,'Iter  #f   #g   #H   #R    fidelity      penalties     total        alpha     |grad|     SDGA ');
 report(spin_system,'----------------------------------------------------------------------------------------------');
 end
 
