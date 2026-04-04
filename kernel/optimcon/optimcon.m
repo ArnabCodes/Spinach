@@ -890,8 +890,8 @@ if ismember(spin_system.control.method,{'lbfgs','rbfgs'})
         
     else
         
-        % Default is 10 gradients
-        spin_system.control.n_grads=10;
+        % Default is 50 gradients
+        spin_system.control.n_grads=50;
         
     end
     

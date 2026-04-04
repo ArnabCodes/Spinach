@@ -5,7 +5,7 @@
 %
 % for further information. Syntax:
 %
-%                trajan(spin_system,traj,property,time_axis)
+%              trajan(spin_system,traj,property,time_axis)
 %
 % Arguments:
 %
@@ -66,6 +66,7 @@
 function trajan(spin_system,traj,property,time_axis)
 
 % Check the input
+if ~exist('time_axis','var'), time_axis=[]; end
 grumble(spin_system,traj,property,time_axis);
 
 % Set the defaults
@@ -286,7 +287,7 @@ switch property
 end
 
 % Set plot option
-if exist('time_axis','var')
+if exist('time_axis','var')&&(~isempty(time_axis))
     
     % Plot with time axis supplied
     p=plot(time_axis,result');  
@@ -328,11 +329,10 @@ end
 if size(trajectory,1)~=size(spin_system.bas.basis,1)
     error('trajectory dimension should match basis dimension.');
 end
-if exist('property','var')&&(~isempty(property))&&...
-   ((~ischar(property))||(~ismember(property,{'correlation_order',...
-   'coherence_order','total_each_spin','local_each_spin',...
-   'level_populations'})))
-    error('property must be ''correlation_order'', ''coherence_order'', ''total_each_spin'', ''local_each_spin'', or ''level_populations''.');
+if exist('property','var')&&(~isempty(property))&&((~ischar(property))||...
+   (~ismember(property,{'correlation_order','coherence_order',...
+                        'total_each_spin','local_each_spin','level_populations'})))
+    error('unknown property, see the header of trajan.m function.');
 end
 if exist('time_axis','var')&&(~isempty(time_axis))&&...
    ((~isnumeric(time_axis))||(~isreal(time_axis))||(~isrow(time_axis))||...
