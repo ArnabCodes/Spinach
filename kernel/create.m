@@ -2102,25 +2102,22 @@ if isfield(inter,'r1_rates')
         % Check scalar relaxation rates
         if isnumeric(inter.r1_rates{n})&&isscalar(inter.r1_rates{n})
 
-            % Must be non-negative real numbers
-            if (~isreal(inter.r1_rates{n}))||(inter.r1_rates{n}<0)
-                error('scalars in inter.r1_rates must be real and non-negative.');
+            % Must be real numbers
+            if ~isreal(inter.r1_rates{n})
+                error('scalars in inter.r1_rates must be real.');
             end
         
         % Check 3x3 relaxation rate tensors
         elseif isnumeric(inter.r1_rates{n})&&all(size(inter.r1_rates{n})==[3 3])
 
-            % Must be real symmetric positive semidefinite
+            % Must be real symmetric
             if ~isreal(inter.r1_rates{n})
                 error('3x3 matrices in inter.r1_rates must be real.');
             end
             if norm(inter.r1_rates{n}-inter.r1_rates{n}',2)>1e-6*norm(inter.r1_rates{n},2)
                 error('3x3 matrices in inter.r1_rates must be symmetric.');
             end
-            if any(eig(inter.r1_rates{n},'vector')<0)
-                error('3x3 matrices in inter.r1_rates must be positive semidefinite.');
-            end
-
+           
         % Check function handles
         elseif isa(inter.r1_rates{n},'function_handle')
             
@@ -2170,22 +2167,19 @@ if isfield(inter,'r2_rates')
         if isnumeric(inter.r2_rates{n})&&isscalar(inter.r2_rates{n})
 
             % Must be non-negative real numbers
-            if (~isreal(inter.r2_rates{n}))||(inter.r2_rates{n}<0)
-                error('scalars in inter.r2_rates must be real and non-negative.');
+            if ~isreal(inter.r2_rates{n})
+                error('scalars in inter.r2_rates must be real.');
             end
         
         % Check 3x3 relaxation rate tensors
         elseif isnumeric(inter.r2_rates{n})&&all(size(inter.r2_rates{n})==[3 3])
 
-            % Must be real symmetric positive semidefinite
+            % Must be real symmetric
             if ~isreal(inter.r2_rates{n})
                 error('3x3 matrices in inter.r2_rates must be real.');
             end
             if norm(inter.r2_rates{n}-inter.r2_rates{n}',2)>1e-6*norm(inter.r2_rates{n},2)
                 error('3x3 matrices in inter.r2_rates must be symmetric.');
-            end
-            if any(eig(inter.r2_rates{n},'vector')<0)
-                error('3x3 matrices in inter.r2_rates must be positive semidefinite.');
             end
 
         % Check function handles

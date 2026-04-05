@@ -138,9 +138,8 @@ for n=1:numel(spin_system.comp.isotopes)
 end
 
 % Make sure the rates make sense
-if any(~isreal(r1_rates),'all')||any(r1_rates<0,'all')||...
-   any(~isreal(r2_rates),'all')||any(r2_rates<0,'all')
-    error('all R1 and R2 relaxation rates must be real and non-negative.');
+if any(~isreal(r1_rates),'all')||any(~isreal(r2_rates),'all')
+    error('all R1 and R2 relaxation rates must be real numbers.');
 end
 
 % Preallocate superoperator diagonals

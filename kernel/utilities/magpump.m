@@ -51,6 +51,7 @@ end
 if ~ismember(spin_system.bas.formalism,{'sphten-liouv'})
     error('this function is only available in sphten-liouv formalism.');
 end
+if rho(1)~=0, error('unit state cannot be pumped.'); end
 end
 
 % I know of scarcely anything so apt to impress the imagination as the
