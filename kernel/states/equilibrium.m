@@ -3,23 +3,27 @@
 % isotropic Hamiltonian, otherwise uses the full Hamiltonian at the speci-
 % fied orientation. Syntax:
 %
-%               rho=equilibrium(spin_system,H,Q,euler_angles)
+%              rho=equilibrium(spin_system,I,Q,euler_angles)
 %
 % Arguments:
 %
-%    H            -  isotropic part of the Hamiltonian left side pro-
-%                    duct superoperator (in Liouville space) or Hamil-
-%                    tonian (in Hilbert space).
+%    I            - isotropic part of the Hamiltonian left side pro-
+%                   duct superoperator (in Liouville space) or Hamil-
+%                   tonian (in Hilbert space). If this argument is
+%                   omitted, the Hamiltonian is built here and used
+%                   to compute the thermal equilibrium state.
 %
-%    Q            -  irreducible components of the anisotropic part
-%                    of the Hamiltonian left side product superopera-
-%                    tor (in Liouville space) or Hamiltonian (in Hil-
-%                    bert space), as returned by hamiltonian.m
+%    Q            - irreducible components of the anisotropic part
+%                   of the Hamiltonian left side product superopera-
+%                   tor (in Liouville space) or Hamiltonian (in Hil-
+%                   bert space), as returned by hamiltonian.m; this
+%                   is needed when the thermal equilibrium state de-
+%                   pends on the system orientation.
 %
-%    euler_angles -  a row vector of Euler angles (in radians) speci-
-%                    fying the system orientation relative to the in-
-%                    put orientation. If the angles are not supplied,
-%                    only isotropic part of the Hamiltonian is used.
+%    euler_angles - a row vector of Euler angles (in radians) speci-
+%                   fying the system orientation relative to the in-
+%                   put orientation. If the angles are not supplied,
+%                   only isotropic part of the Hamiltonian is used.
 %
 % Outputs:
 %
@@ -30,7 +34,7 @@
 %          peroperators, not commutation superoperators.
 %
 % WARNING: assumptions supplied to the hamiltonian.m call that generates
-%          H and Q must be 'labframe'.
+%          I and Q must be 'labframe'.
 %
 % WARNING: spin system ground states are commonly degenerate; absolute
 %          zero temperatures are not supported.
@@ -40,29 +44,29 @@
 %
 % <https://spindynamics.org/wiki/index.php?title=equilibrium.m>
 
-function rho=equilibrium(spin_system,H,Q,euler_angles)
+function rho=equilibrium(spin_system,I,Q,euler_angles)
 
 % Account for the orientation
 if nargin==4
     
     % Check consistency
-    grumble(spin_system,H,Q,euler_angles);
+    grumble(spin_system,I,Q,euler_angles);
     
     % Build anisotropic Hamiltonian
-    H=H+orientation(Q,euler_angles);
+    I=I+orientation(Q,euler_angles);
     
 elseif nargin==2
     
     % Check consistency
-    grumble(spin_system,H);
+    grumble(spin_system,I);
 
 elseif nargin==1
 
     % Build the isotropic Hamiltonian
-    H=hamiltonian(assume(spin_system,'labframe'),'left');
+    I=hamiltonian(assume(spin_system,'labframe'),'left');
 
     % Check consistency
-    grumble(spin_system,H);
+    grumble(spin_system,I);
     
 else
     
@@ -88,7 +92,7 @@ switch spin_system.bas.formalism
                 % Unit population of T(0,0) state, normalisation is
                 % such because prod(spin_system.comp.mults) can be-
                 % come too large for double precision arithmetic
-                unit=sparse(1,1,1,size(H,2),1);
+                unit=sparse(1,1,1,size(I,2),1);
 
             case 'zeeman-liouv'
 
@@ -99,12 +103,12 @@ switch spin_system.bas.formalism
         end
 
         % Catch silly calls
-        if norm(H*unit,1)<1e-10
+        if norm(I*unit,1)<1e-10
             error('H and Q must be left side product superops, not commutation superops.');
         end
 
         % Propagate unit state in imaginary time
-        rho=step(spin_system,H,unit,-1i*beta_factor);
+        rho=step(spin_system,I,unit,-1i*beta_factor);
 
         % Return to CPU if appropriate
         if isa(rho,'gpuArray'), rho=gather(rho); end
@@ -121,7 +125,7 @@ switch spin_system.bas.formalism
     case {'zeeman-hilb'}
         
         % Estimate the norm
-        mat_norm=abs(beta_factor)*cheap_norm(H);
+        mat_norm=abs(beta_factor)*cheap_norm(I);
             
         % Determine scaling and squaring parameters
         n_squarings=max([0 ceil(log2(mat_norm))]); scaling_factor=2^n_squarings;
@@ -130,7 +134,7 @@ switch spin_system.bas.formalism
         if scaling_factor>1, beta_factor=beta_factor/scaling_factor; end
             
         % Compute density matrix as a propagator in imaginary time
-        rho=propagator(spin_system,H,-1i*beta_factor); rho=rho/trace(rho);
+        rho=propagator(spin_system,I,-1i*beta_factor); rho=rho/trace(rho);
             
         % Move to GPU if appropriate
         if ismember('gpu',spin_system.sys.enable), rho=gpuArray(rho); end
@@ -151,9 +155,9 @@ end
 end
     
 % Consistency enforcement
-function grumble(spin_system,H,Q,euler_angles)
-if ~isnumeric(H)
-    error('Hamiltonian must be numeric.');
+function grumble(spin_system,I,Q,euler_angles)
+if ~isnumeric(I)
+    error('isotropic Hamiltonian I must be numeric.');
 end
 if isempty(spin_system.rlx.temperature)
     error('temperature must be specified in inter.temperature');
@@ -163,9 +167,10 @@ if spin_system.rlx.temperature==0
 end
 if nargin==4
     if ~iscell(Q)
-        error('Q must be a cell array.');
+        error('anisotropy basis Q must be a cell array.');
     end
-    if (~isnumeric(euler_angles))||(~isreal(euler_angles))||(numel(euler_angles)~=3)
+    if (~isnumeric(euler_angles))||(~isreal(euler_angles))||...
+       (numel(euler_angles)~=3)
         error('euler_angles must be a real three-element vector.');
     end
 end

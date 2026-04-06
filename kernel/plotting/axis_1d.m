@@ -64,13 +64,22 @@ end
 % Carrier frequency of the spin in Hz
 basefrq=-spin(parameters.spins{1})*spin_system.inter.magnet/(2*pi);
 
+% Make the isotope mass number an upper index
+k=regexp(parameters.spins{1},'[A-Za-z]','once');
+if k>1 % For things like '195Pt' but not 'E8', etc.
+    iso_label=sprintf('$^{%s}$%s',parameters.spins{1}(1:k-1),...
+                                  parameters.spins{1}(k:end));
+else
+    iso_label=parameters.spins{1};
+end
+
 % Convert the units if necessary
 switch parameters.axis_units
     
     case 'ppm'
         
         % NMR-style ppm scale with respect to the carrier frequency
-        ax_label=[parameters.spins{1} ' chemical shift / ppm'];
+        ax_label=[iso_label ' chemical shift / ppm'];
         ax=-1e6*ax/basefrq;
         
     case 'Gauss'
@@ -88,42 +97,42 @@ switch parameters.axis_units
     case 'Hz'
         
         % Raw Hz axis for rotating frame simulations
-        ax_label=[parameters.spins{1} ' offset frequency / Hz'];
+        ax_label=[iso_label ' offset frequency / Hz'];
         
     case 'kHz'
         
         % Raw kHz axis for rotating frame simulations
-        ax_label=[parameters.spins{1} ' offset frequency / kHz'];
+        ax_label=[iso_label ' offset frequency / kHz'];
         ax=1e-3*ax;
         
     case 'MHz'
         
         % Raw MHz axis for rotating frame simulations
-        ax_label=[parameters.spins{1} ' offset frequency / MHz'];
+        ax_label=[iso_label ' offset frequency / MHz'];
         ax=1e-6*ax;
         
     case 'MHz-labframe'
         
         % Raw MHz axis for lab frame simulations
-        ax_label=[parameters.spins{1} ' frequency / MHz'];
+        ax_label=[iso_label ' frequency / MHz'];
         ax=-1e-6*(ax-basefrq);
         
     case 'GHz'
         
         % Raw GHz axis for rotating frame simulations
-        ax_label=[parameters.spins{1} ' offset frequency / GHz'];
+        ax_label=[iso_label ' offset frequency / GHz'];
         ax=1e-9*ax;
         
     case 'GHz-labframe'
         
         % Raw GHz axis for lab frame simulations
-        ax_label=[parameters.spins{1} ' frequency / GHz'];
+        ax_label=[iso_label ' frequency / GHz'];
         ax=-1e-9*(ax-basefrq);
         
     case 'gtensor'
         
         % Raw g-tensor axis for EPR simulations
-        ax_label=[parameters.spins{1} ' g-tensor / \mu_B'];
+        ax_label=[iso_label ' g-tensor / \mu_B'];
         ax=-spin_system.tols.freeg*(ax-basefrq)/basefrq;
         
     case 'points'
