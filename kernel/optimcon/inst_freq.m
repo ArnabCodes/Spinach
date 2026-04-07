@@ -1,5 +1,5 @@
 % Instantaneous frequency trajectory from a complex time-domain 
-% signal. Uses product-phase finite differences, syntax:
+% signal. Uses product-phase finite differences. Syntax:
 %
 %                   freq=inst_freq(signal,dt)
 %

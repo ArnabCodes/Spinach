@@ -38,7 +38,7 @@ grumble(filename,npoints);
 
 % Read the waveform
 P=mfilename('fullpath'); P=P(1:(end-9));
-wavefile=fopen([P 'pk_files/' filename],'r');
+wavefile=fopen([P 'pk_files' filesep filename],'r');
 waveform=textscan(wavefile,'%f, %f','CommentStyle','##'); 
 waveform=cell2mat(waveform); frewind(wavefile);
 

@@ -1,8 +1,19 @@
-% Sum of elements of a tensor train representation of a matrix. Syntax:
+% Sum of elements of a tensor train representation of 
+% a matrix. Syntax:
 %
-%                        answer=sum(ttrain,dim)
+%                answer=sum(ttrain,dim)
 %
-% The sum is taken along the specified dimension (dim=1 or dim=2).
+% Parameters:
+%
+%    ttrain - tensor train object representing
+%             a matrix
+%
+%    dim    - summation dimension, 1 or 2
+%
+% Outputs:
+%
+%    answer - tensor train or flat representation
+%             of the summation result
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il
