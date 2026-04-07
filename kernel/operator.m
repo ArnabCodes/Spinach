@@ -86,6 +86,7 @@ if ismember('op_cache',spin_system.sys.enable)
     op_hash=md5_hash({operators,spins,operator_type,...
                       format,spin_system.comp.iso_hash,...
                       spin_system.bas.basis_hash});
+    op_hash=[op_hash ':O']; % Mark as operator
 
     % Get ValueStore
     if ~isworkernode
@@ -207,7 +208,7 @@ end
 % Write the cache record
 if ismember('op_cache',spin_system.sys.enable)
 
-    % Update the cache
+    % Update the ValueStore
     if ~isKey(store,op_hash)
         put(store,{op_hash},{A});
     end

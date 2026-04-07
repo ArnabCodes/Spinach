@@ -38,55 +38,22 @@ if size(L,1)<spin_system.tols.small_matrix
     P=expm((-1i*timestep)*L); return; 
 end
 
-% Check the cache
+% Load the cache record if one exists
 if ismember('prop_cache',spin_system.sys.enable)
 
     % Hash the generator, the step, and the tolerance
     prop_hash=md5_hash({L,timestep,spin_system.tols.prop_chop});
-    
-    % Generate the cache record name in the scratch directory
-    filename=[spin_system.sys.scratch filesep 'spinach_prop_' prop_hash '.mat'];
-    
-    % Check if the file exists
-    if exist(filename,'file')
+    prop_hash=[prop_hash ':P']; % Mark as propagator
 
-        % Try to use
-        try
-            
-            % Try to load the cache record
-            load(filename,'P'); load_time=toc();
-            
-            % Check load success
-            if exist('P','var')
-                
-                % Report the stats and return the cached propagator
-                report(spin_system,['cache record loaded in ' num2str(load_time) ' seconds']);  
-                report(spin_system,['propagator dimension ' num2str(size(P,1)) ...
-                                    ', nnz ' num2str(nnz(P))                   ...
-                                    ', density ' num2str(100*nnz(P)/numel(P))  ...
-                                    '%, sparsity ' num2str(issparse(P))]);
-                return;
-
-            else
-                
-                % Do not make a fuss on fail
-                report(spin_system,'could not read the cache record, recomputing...');
-                
-            end
-            
-        catch
-
-            % Do not make a fuss on fail
-            report(spin_system,'could not read the cache record, recomputing...');
-
-        end
-
+    % Get ValueStore
+    if ~isworkernode
+        store=gcp('nocreate').ValueStore; 
     else
-        
-        % Let the user know the propagator is being computed
-        report(spin_system,'cache record not found, computing...');
-
+        store=getCurrentValueStore(); 
     end
+
+    % Try to retrieve the propagator from the ValueStore
+    if isKey(store,prop_hash), P=store(prop_hash); return; end
     
 end
 
@@ -240,35 +207,14 @@ if n_squarings>0
 
 end
     
-% Write the cache record if caching is beneficial
-if ismember('prop_cache',spin_system.sys.enable)&&(toc>0.01)
+% Write the cache record
+if ismember('prop_cache',spin_system.sys.enable)
 
-    % Do not fight other workers
-    if ~exist(filename,'file')
-    
-        % Try to save
-        try
-            
-            % Modern format, compressed
-            save(filename,'P','-v7.3'); drawnow;
-            report(spin_system,'propagator cache record saved.');
-
-        catch
-
-            % Do not make a fuss on fail, this can happen
-            % for large parallel pools where many workers
-            % may be trying to write the same file.
-            report(spin_system,'could not save cache record.');
-
-        end
-
+    % Update the ValueStore
+    if ~isKey(store,prop_hash)
+        put(store,{prop_hash},{P});
     end
-    
-elseif ismember('prop_cache',spin_system.sys.enable)
-    
-    % Tell the user that caching is pointless here
-    report(spin_system,'cache record not worth saving.');
-    
+
 end
 
 end

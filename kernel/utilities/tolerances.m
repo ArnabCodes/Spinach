@@ -367,8 +367,8 @@ if ismember('paranoia',spin_system.sys.enable)
     % Make sure zero track elimination is disabled
     spin_system.sys.disable=unique([spin_system.sys.disable {'zte'}]);
 
-    % Make sure operator and propagator caching is not enabled
-    spin_system.sys.enable=setdiff(spin_system.sys.enable,{'op_cache','prop_cache'});
+    % Make sure operator, Hamiltonian, and propagator caching is not enabled
+    spin_system.sys.enable=setdiff(spin_system.sys.enable,{'op_cache','prop_cache','ham_cache'});
     
 end
 
