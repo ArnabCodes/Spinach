@@ -1,10 +1,10 @@
-/* num2cell_2_single.cpp
+/* knum2cell.cpp
  *
  * Row-partitioning MEX utility for Spinach
  *
  * Syntax:
  *
- *                    c=num2cell_2_single(a)
+ *                    c=knum2cell(a)
  *
  * Performs:
  *
