@@ -4,10 +4,13 @@
 %
 %   answer=crystal(spin_system,pulse_sequence,parameters,assumptions)
 %
-% where pulse sequence is a function handle to one of the pulse sequences
-% located in the experiments directory, assumptions is a string that would
-% be passed to assume.m when the Hamiltonian is built and parameters is a
-% structure with the following subfields:
+% Parameters:
+%
+%   pulse_sequence - a function handle to one of the pulse se-
+%                    quences located in the experiments folder
+%
+%   assumptions    - a string that would be passed to assume.m
+%                    when the Hamiltonian is built
 %
 %   parameters.spins    - a cell array giving the spins that 
 %                         the pulse sequence involves, e.g. 
@@ -32,7 +35,7 @@
 %                         on the respective spins should be
 %                         laboratory frame.
 %
-%  parameters.needs   - a cell array of strings specifying additional
+%   parameters.needs  - a cell array of strings specifying additional
 %                       information required by the sequence:
 %
 %                       'zeeman_op' - Zeeman part of the Hamiltonian
@@ -44,7 +47,7 @@
 %                       current orientation, and sent to the pulse 
 %                       sequence in parameters.rho0 subfield
 %
-%  parameters.*       - additional subfields may be required by your
+%   parameters.*      - additional subfields may be required by your
 %                       pulse sequence - check its documentation page 
 %
 % The parameters structure is passed to the pulse sequence with the follo-
@@ -56,7 +59,9 @@
 %   parameters.spn_dim  - matrix dimension for the spin 
 %                         dynamics subspace
 %
-% This function returns whatever it is that the pulse sequence returns.
+% Outputs:
+% 
+%   this function returns whatever it is that the pulse sequence returns
 %
 % Note: arbitrary order rotating frame transformation is supported, inc-
 %       luding infinite order. See the header of rotframe.m for further

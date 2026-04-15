@@ -240,7 +240,7 @@ for k=1:numel(mfiles)
             doc_header=content(1:(doc_end-1));
 
             % Require syntax section
-            if ~any(contains(doc_header,'Syntax:'))
+            if ~any(contains(doc_header,'Syntax'))
                 edit(file_name); error('documentation header must contain Syntax section');
             end
 

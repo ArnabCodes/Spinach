@@ -4,7 +4,7 @@
 %              https://doi.org/10.1016/0022-2364(88)90190-4
 %                  https://doi.org/10.1063/1.5000528
 % 
-% Syntax (call from powder context)::
+% Syntax (call from powder context):
 %
 %           dnp=noveldnp_steady(spin_system,parameters,H,R,K)
 %

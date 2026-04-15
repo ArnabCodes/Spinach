@@ -110,7 +110,7 @@ G={Gx,Gy,Gz};
 end
 
 % Consistency enforcement
-function grumble(spin_system,parameters) %#ok<INUSD>
+function grumble(spin_system,parameters)
 if spin_system.inter.magnet==0
     error('the primary magnet field must be non-zero.');
 end

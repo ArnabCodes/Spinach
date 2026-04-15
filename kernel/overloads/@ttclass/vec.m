@@ -2,6 +2,14 @@
 % ard (:) syntax is not available. Syntax:
 %
 %                              A=vec(A)
+%
+% Parameters:
+%
+%    A - numeric or ttclass array
+%
+% Outputs:
+%
+%    A - numeric or ttclass array
 % 
 % WARNING: for tensor trains this operation proceeds by stretching eve-
 %          ry core of the tensor train. the result is not the same as

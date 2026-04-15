@@ -4,7 +4,7 @@
 %
 %                     H=bfgs_upd(H,dx,dg)
 %
-% Arguments:
+% Parameters:
 %
 %    H      - current BFGS approximation to the Hessian
 %             matrix corresponding to the *negative*
@@ -17,7 +17,7 @@
 %    dg     - increment in gradients between the current
 %             and the previous step
 %
-% Returns:
+% Outputs:
 %
 %    H      - updated BFGS approximation to the Hessian
 %             matrix corresponding to the *negative*

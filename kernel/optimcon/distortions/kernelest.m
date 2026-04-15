@@ -1,4 +1,5 @@
-% FIR convolution kernel estimation from input/output samples.
+% FIR convolution kernel estimation from input and output signal
+% samples. Syntax:
 %
 %          h=kernelest(x,y,ker_len,method,align,lambda)
 %
