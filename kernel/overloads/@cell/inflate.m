@@ -7,7 +7,7 @@
 %
 %    A   -  a cell array of polyadics
 %
-% Outputs
+% Outputs:
 %
 %    A   -  a cell array of matrices
 %

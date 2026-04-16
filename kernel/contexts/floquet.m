@@ -124,8 +124,8 @@ parameters.spc_dim=spc_dim; parameters.spn_dim=spn_dim;
 R=relaxation(spin_system); K=kinetics(spin_system);
 
 % Get the averaging grid as a structure
-sph_grid=load([spin_system.sys.root_dir '/kernel/grids/' ...
-               parameters.grid],'alphas','betas','gammas','weights');
+sph_grid=load([spin_system.sys.root_dir filesep 'kernel' filesep 'grids' ...
+               filesep parameters.grid],'alphas','betas','gammas','weights');
            
 % Assign local variables
 alphas=sph_grid.alphas; betas=sph_grid.betas; 

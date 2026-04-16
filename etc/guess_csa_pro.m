@@ -7,7 +7,27 @@
 %         https://doi.org/10.1021/ja042863o
 %
 % Proline is not currently handled, amino acids are assumed to be 
-% numbered from N-terminus to C-terminus.
+% numbered from N-terminus to C-terminus. Syntax:
+%
+%        CSAs=guess_csa_pro(aa_nums,pdb_ids,coords,options)
+%
+% Parameters:
+%
+%       aa_nums   - a vector of amino acid numbers
+%
+%       pdb_ids   - a cell array of PDB atom identifiers
+%
+%       coords    - a cell array of coordinate vectors
+%
+%       options.nh_csa - 'tcb' (default) for Tjandra, Curtis,
+%                        and Bodenhausen, 'bax' for Cornilescu
+%                        and Bax, and 'pol' for Case, Polenova
+%                        and Gronenborn eigenvalues and orien-
+%                        tations of the CSA tensors
+%
+% Outputs:
+%
+%       CSAa - a cell array of 3x3 CSA tensors in ppm
 %
 % Note: these CSAs are very approximate. For accurate relaxation
 %       analysis you must supply your own tensors.

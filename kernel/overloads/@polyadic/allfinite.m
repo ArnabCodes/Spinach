@@ -7,7 +7,7 @@
 %
 %      p    - a polyadic object
 %
-% Outputs
+% Outputs:
 %
 %      answ - logical true if all numeric data
 %             in the polyadic object is finite

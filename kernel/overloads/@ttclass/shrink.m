@@ -2,7 +2,14 @@
 %
 %                         ttrain=shrink(ttrain)
 %
-% Returns a single tensor train with right-to-left orthogonalisation.
+% Parameters:
+%
+%    ttrain - a tensor train object
+%
+% Outputs:
+%
+%    ttrain - compressed tensor train object with 
+%             right-to-left orthogonalisation
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il
@@ -35,7 +42,7 @@ end
     
 end
 
-% "It's a tough life, being small and delicious."
+% It's a tough life, being small and delicious.
 %
 % A Russian saying
 

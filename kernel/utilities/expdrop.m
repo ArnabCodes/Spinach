@@ -17,6 +17,10 @@
 %
 %   drop_rate - exponential drop rate, Hz
 %
+% Outputs:
+%
+%        drop - a row vector with the fall-off
+%
 % ilya.kuprov@weizmann.ac.il
 %
 % <https://spindynamics.org/wiki/index.php?title=expdrop.m>

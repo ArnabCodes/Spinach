@@ -11,7 +11,11 @@
 %
 %       pdb_id   - a cell array of PDB atom identifiers
 %
-%       coords   - a cell array of coordinate vectors 
+%       coords   - a cell array of coordinate vectors
+%
+% Outputs:
+%
+%       jmatrix  - a cell array of J-couplings in Hz
 %
 % Database nomenclature is as follows:
 %

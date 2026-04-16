@@ -4,6 +4,16 @@
 %
 %                               c=minus(a,b)
 %
+% Parameters:
+%
+%    a - a tensor train object
+%
+%    b - a tensor train object
+%
+% Outputs:
+%
+%    c - a tensor train object
+%
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il
 %

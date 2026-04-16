@@ -11,7 +11,7 @@
 %             call, set to 'hush' to make the resulting
 %             object suppress console output
 %
-% Outpus:
+% Outputs:
 %
 %    spin_system  - empty but valid Spinach spin system
 %                   description object

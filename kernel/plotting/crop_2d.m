@@ -3,7 +3,7 @@
 %
 % [spec,parameters]=crop_2d(spin_system,spec,parameters,crop_ranges)
 %
-% Inputs:
+% Parameters:
 %
 %          spec - 2D matrix containing the spectrum
 %

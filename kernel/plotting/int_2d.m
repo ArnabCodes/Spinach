@@ -1,8 +1,8 @@
 % Contour plotting utility with non-linear adaptive contour spacing and 
 % 2D integration using mouse or an interval file. Syntax:
 %
-%              int_2d(spin_system,spectrum,parameters,ncont,...
-%                     delta,k,ncol,m,signs,filename)
+%           int_2d(spin_system,spectrum,parameters,ncont,...
+%                  delta,k,ncol,m,signs,filename)
 %
 % Parameters:
 %
@@ -60,7 +60,8 @@
 %
 % <https://spindynamics.org/wiki/index.php?title=int_2d.m>
 
-function int_2d(spin_system,spectrum,parameters,ncont,delta,k,ncol,m,signs,filename)
+function int_2d(spin_system,spectrum,parameters,ncont,...
+                delta,k,ncol,m,signs,filename)
 
 % Check consistency
 grumble(filename);
@@ -78,8 +79,8 @@ if ~exist(filename,'file')
     n=1;
     
     % Report to the user
-    disp('Interactive integration, define the box by clicking on its opposite corners.');
-    disp(['Saving integration ranges into ' filename ' ...']);
+    report(spin_system,'define the box by clicking on its opposite corners.');
+    report(spin_system,['saving integration ranges into ' filename ' ...']);
     
     % Proceed with interactive integration
     while true()
@@ -104,9 +105,11 @@ if ~exist(filename,'file')
                             ranges{n,2}(1),ranges{n,2}(2),'RelTol',1e-3,'AbsTol',1e-3);
         
         % Report to the user
-        disp(['Recorded X range: ' num2str(min(ranges{n,1})) ' to ' num2str(max(ranges{n,1}))]);
-        disp(['Recorded Y range: ' num2str(min(ranges{n,2})) ' to ' num2str(max(ranges{n,2}))]);
-        disp(['Integral: ' num2str(abs(I))]);
+        report(spin_system,['recorded X range: ' num2str(min(ranges{n,1})) ...
+                            ' to ' num2str(max(ranges{n,1}))]);
+        report(spin_system,['recorded Y range: ' num2str(min(ranges{n,2})) ...
+                            ' to ' num2str(max(ranges{n,2}))]);
+        report(spin_system,['integral: ' num2str(I)]);
         
         % Increment counter
         n=n+1;
@@ -116,7 +119,7 @@ if ~exist(filename,'file')
 else
     
     % Load ranges from file
-    disp('Found the ranges file, integrals:'); 
+    report(spin_system,'found the ranges file, integrals:'); 
     load(filename,'ranges');
     
     % Perform automatic integration
@@ -136,7 +139,7 @@ else
                             ranges{n,2}(1),ranges{n,2}(2),'RelTol',1e-3,'AbsTol',1e-3);
         
         % Report to the user
-        disp(I);
+        report(spin_system,num2str(I));
         
     end
     

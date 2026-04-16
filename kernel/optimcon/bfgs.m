@@ -5,7 +5,7 @@
 %
 %                 H=bfgs(dx_hist,dg_hist,g)
 %
-% Arguments:
+% Parameters:
 %
 %    dx_hist  - history of x increments, a stack
 %               of column vectors, from the latest
@@ -17,7 +17,7 @@
 %
 %    g        - current gradient (used for sizing)
 %
-% Returns:
+% Outputs:
 %
 %    H        - BFGS approximation to the Hessian 
 %               matrix corresponding to the *nega-

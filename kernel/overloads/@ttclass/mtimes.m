@@ -2,8 +2,15 @@
 %
 %                           c=mtimes(a,b)
 %
-% where first operand (a) can be scalar or tensor train, second operand
-% (b) can be scalar, or tensor train, or full matrix.
+% Parameters:
+%
+%      a - a scalar or a tensor train
+%
+%      b - a scalar, a tensor train, or a full matrix
+%
+% Outputs:
+%
+%      c - a tensor train object
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il

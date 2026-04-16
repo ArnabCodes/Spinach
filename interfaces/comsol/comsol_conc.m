@@ -8,7 +8,7 @@
 %
 %    file_name    - a character string
 %
-% Ouputs:
+% Outputs:
 %
 %    the following fields are added to spin_system object
 %

@@ -1,6 +1,10 @@
 % Converts user-friendly descriptions of spin states and operators into the 
 % formal description (opspec) used by Spinach kernel. Syntax:
 %
+%         [opspecs,coeffs]=human2opspec(spin_system,operators,spins)
+%
+% Parameters:
+%
 % 1. If both inputs are strings
 %
 %       [opspecs,coeffs]=human2opspec(spin_system,'Lz','13C')

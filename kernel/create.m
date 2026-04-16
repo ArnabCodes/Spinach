@@ -304,13 +304,6 @@ if ~isworkernode
         setenv('PARALLEL_SERVER_OVERRIDE_PORT_RANGE',port_rng_str);
         pool_env_vars={'PARALLEL_SERVER_OVERRIDE_PORT_RANGE'};
 
-        % Avoid firewall and DNS issues
-        pctconfig('hostname','127.0.0.1');
-        setenv('MDCE_OVERRIDE_CLIENT_HOST','127.0.0.1');
-        setenv('MDCE_OVERRIDE_EXTERNAL_HOSTNAME','127.0.0.1');
-        pool_env_vars=[pool_env_vars {'MDCE_OVERRIDE_CLIENT_HOST' ...
-                                      'MDCE_OVERRIDE_EXTERNAL_HOSTNAME'}];
-
         % Get cluster object
         c=parcluster(spin_system.sys.parallel{1});
         

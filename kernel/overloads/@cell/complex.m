@@ -6,7 +6,7 @@
 %
 %    A   -  a cell array of numeric objects
 %
-% Outputs
+% Outputs:
 %
 %    A   -  a cell array of numeric objects
 %

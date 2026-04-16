@@ -2,9 +2,12 @@
 %
 %                    props=oparse(filename)
 %
-% The following output fields are returned if the corres-
-% ponding information is found in the file:
-%             
+% Parameters:
+%
+%    filename - a character string with the file path
+%
+% Outputs:
+%
 %   props.coords           - atomic coordinates (Angstrom)
 %   props.symbols          - atomic symbols
 %   props.natoms           - number of atoms

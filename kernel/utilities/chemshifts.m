@@ -3,11 +3,15 @@
 %
 %               [cs_ppm,cs_hz]=chemshifts(spin_system)
 %
+% Parameters:
+%
+%    spin_system - spin system descriptor object
+%
 % Outputs:
 %
-%    cs_ppm  - chemical shifts in ppm
+%    cs_ppm      - chemical shifts in ppm
 %
-%    cs_hz   - chemical shifts in Hz
+%    cs_hz       - chemical shifts in Hz
 %
 % ilya.kuprov@weizmann.ac.il
 %

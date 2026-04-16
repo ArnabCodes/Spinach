@@ -1,9 +1,17 @@
 % Mimics the diag behavior for tensor train matrix. Syntax:
 %
-%                            tt=diag(tt)
+%                         tt=diag(tt)
 %
-% If tt is a square matrix, return a vector by computing diag of every core.
-% If tt is a vector (one mode size is ones), return a diagonal matrix.
+% Parameters:
+%
+%     tt - a tensor train representation of a matrix
+%
+% Outputs:
+%
+%     tt - if the input is a square matrix, returns a 
+%          vector by computing diag of every core; if
+%          the input is a vector (one mode size is 
+%          ones), returns a diagonal matrix
 %
 % d.savostyanov@soton.ac.uk
 %

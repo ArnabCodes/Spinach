@@ -7,7 +7,7 @@
 %
 %    tt  - tensor train object
 %
-% Ouputs:
+% Outputs:
 %
 %     n  - an integer
 %
