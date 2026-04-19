@@ -5,7 +5,7 @@
 %          test=alpha_conds(test_type,alpha,fx_0,fx_1,...
 %                           gfx_0,gfx_1,dir,spin_system)
 %
-% Arguments:
+% Parameters:
 %
 %    test_type         - condition selector:
 %
@@ -29,7 +29,7 @@
 %    spin_system       - Spinach data structure with line
 %                        search settings in control
 %
-% Returns:
+% Outputs:
 %
 %    test              - logical true if the selected
 %                        condition is satisfied

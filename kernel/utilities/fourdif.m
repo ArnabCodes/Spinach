@@ -4,23 +4,25 @@
 %
 %                        [x,DM]=fourdif(N,m)
 % 
-%  Input:
+% Parameters:
 %
-%  N:        Size of differentiation matrix.
-%  m:        Derivative order.
+%     N - dimension of differentiation matrix
 %
-%  Output:
+%     m - derivative order
 %
-%  x:        Equispaced points 0, 2pi/N, 4pi/N, ... , (N-1)2pi/N
-%  DM:       m'th order differentiation matrix
+%  Outputs:
 %
-%  Explicit formulas are used to compute the matrices for m=1 and
+%     x - equispaced points 0, 2*pi/N, 4*pi/N, ... , (N-1)*2*pi/N
+%
+%    DM - m-th order differentiation matrix
+%
+%  Explicit formulae are used to compute the matrices for m=1 and
 %  m=2. A discrete Fourier approach is employed for m>2. The prog-
 %  ram computes the first column and first row and then uses the 
-%  toeplitz command to create the matrix.
+%  toeplitz() function to create the matrix.
 %
 %  For m=1 and 2 the code implements a "flipping trick" to improve
-%  accuracy suggested in http://dx.doi.org/10.1137/0916073 
+%  accuracy as suggested in http://dx.doi.org/10.1137/0916073 
 %
 %  S.C. Reddy
 %  J.A.C. Weideman
@@ -33,7 +35,7 @@ function [x,DM]=fourdif(N,m)
 grumble(N,m);
 
 % Run the blob
-x=2*pi*(0:N-1)'/N;                           % gridpoints
+x=2*pi*(0:N-1)'/N;                           % grid points
 
 % Differentiation matrix
 if (nargout>1)    

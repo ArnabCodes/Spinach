@@ -13,12 +13,14 @@
 %      mode - 'log' for logarithmic coordinates and 'linear'
 %             for linear ones; 'log' is recommended
 %
-% The function returns the regularisation parameter at the point 
-% of the maximum curvature of the L-curve.
+% Outputs:
+%   
+%   lam_opt - the regularisation parameter at the point 
+%             of the maximum curvature of the L-curve
 %
 % ilya.kuprov@weizmann.ac.il
 %
-% <https://spindynamics.org/wiki/index.php?title=Lcurve.m>
+% <https://spindynamics.org/wiki/index.php?title=lcurve.m>
 
 function lam_opt=lcurve(lam,err,reg,mode)
 

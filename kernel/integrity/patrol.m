@@ -35,7 +35,8 @@ rng('shuffle');
 
 % Get the directory tree
 P=mfilename('fullpath'); P=P(1:(end-6));
-mfiles=dir([P '../../examples/**/*.m']);
+mfiles=dir([P '..' filesep '..' filesep 'examples' ...
+            filesep '**' filesep '*.m']);
 
 % Find relevant files
 if ~isempty(test_subject)

@@ -175,7 +175,8 @@ end
 R=relaxation(spin_system); K=kinetics(spin_system);
 
 % Get the averaging grid
-sph_grid=load([spin_system.sys.root_dir '/kernel/grids/' parameters.grid '.mat']);
+sph_grid=load([spin_system.sys.root_dir filesep 'kernel' filesep 'grids' ...
+                                        filesep parameters.grid '.mat']);
 
 % Assign local variables
 alphas=sph_grid.alphas; betas=sph_grid.betas; 

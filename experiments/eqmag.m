@@ -5,15 +5,15 @@
 %
 %                   magn=eqmag(spin_system,parameters)
 %
-% Input:
+% Parameters:
 %
 %       parameters.grid - spherical grid for averaging
 %
-% Output:
+% Outputs:
 %
 %       magn - molar magnetization vector [Mx My Mz] in [Na*mu_bohr]
 %
-% Note: the use of bas.formalism='zeeman-hilb' is obligatory.
+% Note: the use of bas.formalism='zeeman-hilb' is required.
 %
 % Note: Spinach uses NMR convention for the exchange coupling: exchange
 %       interaction term in the Hamiltonian is 2*pi*J*(LxSx+LySy+LzSz)
@@ -27,7 +27,7 @@
 function magn=eqmag(spin_system,parameters)
 
 % Check consistency
-grumble(parameters)
+grumble(spin_system,parameters)
 
 % Get the number of spins
 nspins=spin_system.comp.nspins;
@@ -99,7 +99,10 @@ magn=real(magn);
 end
 
 % Consistency checking
-function grumble(parameters)
+function grumble(spin_system,parameters)
+if ~strcmp(spin_system.bas.formalism,'zeeman-hilb')
+    error('zeeman-hilb formalism is required.');
+end
 if ~isfield(parameters,'grid')
     error('spherical averaging grid must be specified in parameters.grid variable.');
 elseif isempty(parameters.grid)
@@ -109,7 +112,8 @@ elseif ~ischar(parameters.grid)
 end
 end
 
-% The window to the world can be covered by a newspaper. 
+% Of all that is written, I love only what a man 
+% has written with his own blood.
 %
-% Stanislaw Jerzy Lec
+% Friedrich Nietzsche
 

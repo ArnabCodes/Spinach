@@ -4,7 +4,9 @@
 %         answer=evolution(spin_system,L,coil,rho,timestep,...
 %                          nsteps,output,destination)
 %
-% Arguments for Liouville space calculations:
+% Parameters:
+%
+%  For Liouville space calculations:
 %
 %      L      - the Liouvillian to be used during evolution
 %
@@ -49,7 +51,7 @@
 %      destination - (optional) the state to be used for destination state
 %                    screening.
 %
-% Arguments for Hilbert space calculations:
+%  For Hilbert space calculations:
 %
 %       L         - Hamiltonian matrix
 %

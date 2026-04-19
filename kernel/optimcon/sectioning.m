@@ -6,7 +6,7 @@
 %         sectioning(cost_function,A,B,x_0,fx_0,gfx_0,...
 %                    dir,data,spin_system)
 %
-% Arguments:
+% Parameters:
 %
 %    cost_function     - objective function handle
 %
@@ -29,7 +29,7 @@
 %    spin_system       - Spinach data structure with
 %                        sectioning settings
 %
-% Returns:
+% Outputs:
 %
 %    alpha             - accepted step length
 %

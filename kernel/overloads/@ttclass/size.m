@@ -1,9 +1,20 @@
 % Returns the size of the matrix represented by a tensor train.
-% Syntax:
-%                          [m,n]=size(tt,dim)
+% The output mimics Matlab's size function. Syntax:
 %
-% For large spin systems M and N may be too large to fit into 
-% the maximum integer permitted by Matlab.
+%                       [m,n]=size(tt,dim)
+%
+% Parameters:
+%
+%    tt  - a tensor train representation of a matrix
+%
+%    dim - (optional) integer specifying dimension
+%
+% Ouputs:
+%
+%    m,n - integers sepcifying the dimensions
+%
+% Note: for large tt matrices, n and n may be too large to fit
+%       into the maximum integer permitted by Matlab.
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il

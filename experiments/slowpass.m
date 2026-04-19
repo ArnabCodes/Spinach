@@ -33,7 +33,7 @@
 %
 % Note: relaxation must be present in the system dynamics, or the 
 %       matrix inversion operation would fail to converge. The re-
-%       laxation matrix R should *not* be thermalized.
+%       laxation matrix R must *not* be thermalized.
 %
 % ilya.kuprov@weizmann.ac.il
 %

@@ -6,8 +6,14 @@
 %
 %                   [sys,inter]=strychnine(spins)
 %
-% The 'spins' parameter is a cell array containing the isotopes to im-
-% port, e.g. {'1H','13C'}.
+% Parameters:
+%
+%     spins - a cell array containing the isotopes to
+%             import, e.g. {'1H','13C'}
+%
+% Outputs:
+%
+%     sys, inter - Spinach input data structures
 %
 % Note: 13C-13C J-couplings are not provided - this file is only
 %       suitable for natural abundance 13C simulations.

@@ -6,13 +6,15 @@
 % Smith et al. Phys. Rev. 115, 1546 (1959), relaxation ra-
 % tes from Carroll et al. JMR 2021.
 %
-% The following fields exist the parameters.* structure:
+% Parameters:
 %
-%   .orientation   - '111', '110', or '100' crystal 
-%                     plane normal aligned with the
-%                     magnetic field, def. is '111'
+%   a structure (parameters.*) with the following fields:
 %
-%   .nitrogen      - '14N' or '15N', default is '14N'
+%      .orientation   - '111', '110', or '100' crystal 
+%                        plane normal aligned with the
+%                        magnetic field, def. is '111'
+%
+%      .nitrogen      - '14N' or '15N', default is '14N'
 %
 % Outputs:
 %

@@ -1,4 +1,4 @@
-% One-shot DOSY pulse sequence.
+% One-shot DOSY pulse sequence. Syntax:
 % 
 %           fid=dosy_oneshot(spin_system,parameters,H,R,K,G,F)
 %

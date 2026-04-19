@@ -3,7 +3,7 @@
 %
 %             fid=hyscore(spin_system,parameters,H,R,K)
 %
-% The following parameters are currently accepted:
+% Parameters:
 %
 %    parameters.nsteps          number of points to be computed 
 %                               in each dimension

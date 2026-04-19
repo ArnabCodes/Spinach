@@ -4,6 +4,12 @@
 %
 %                  P=sphten2zeeman(spin_system)
 %
+% Parameters:
+%
+%    spin_system - main Spinach data structure using
+%                  sphten-liouv formalism and inclu-
+%                  ding basis set information
+%
 % Outputs:
 %
 %    P - projector matrix that is to be used in the fol-
@@ -11,7 +17,7 @@
 %
 %                   rho_zeeman=P*rho_sphten
 %
-% Note: the matrix need not be square and may be huge.
+% Note: the projector need not be square and may be huge.
 %
 % ilya.kuprov@weizmann.ac.il
 % enu.jamila@proton.me

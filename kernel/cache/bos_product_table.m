@@ -9,13 +9,15 @@
 %
 %     nlevels - number of bosonic ladder population levels 
 %
+% Outputs:
 %
-% The output contains the structure coefficients in the follow-
-% ing lowing conventions:
+%     product_table_left
+%     product_table_right - structure coefficients in
+%                           the following conventions:
 %
-%       B{n}*B{m}=...+product_table_left(n,m,k)*B{k}+...
+%      B{n}*B{m}=...+product_table_left(n,m,k)*B{k}+...
 %
-%       B{m}*B{n}=...+product_table_right(n,m,k)*B{k}+...
+%      B{m}*B{n}=...+product_table_right(n,m,k)*B{k}+...
 %
 % corresponding to the expansion of the left and the right mul-
 % tiplicative action by B{n} on B{m} as given in Eq 7.18 of the
@@ -106,3 +108,4 @@ end
 % kon it was probably a printer.
 %
 % John Moynes
+

@@ -2,41 +2,46 @@
 % lian superoperator and passes it on to the pulse sequence function, which
 % should be supplied as a handle. Syntax:
 %
-%     answer=gridfree(spin_system,pulse_sequence,parameters,assumptions)
+%    answer=gridfree(spin_system,pulse_sequence,parameters,assumptions)
 %
-% where pulse sequence is a function handle to one of the pulse sequences
-% located in the experiments directory, assumptions is a string that would
-% be passed to assume.m when the Hamiltonian is built and parameters is a
-% structure with the following subfields:
+% Parameters:
 %
-%   parameters.rate     - spinning rate in Hz. Positive numbers
-%                         for JEOL, negative for Varian and Bruker
-%                         due to different rotation directions.
+%    pulse_sequence - a function handle to one of the pulse sequences
+%                     located in the experiments directory
 %
-%   parameters.axis     - spinning axis, given as a normalized
-%                         3-element vector
+%    assumptions    - is a string that would be passed to assume.m 
+%                     when the Hamiltonian is built
 %
-%   parameters.spins    - a cell array giving the spins that 
-%                         the pulse sequence involves, e.g. 
-%                         {'1H','13C'}
+%    parameters     - a structure with the following subfields:
 %
-%   parameters.offset   - a cell array giving transmitter off-
-%                         sets in Hz on each of the spins listed
-%                         in parameters.spins array
+%         .rate     - spinning rate in Hz. Positive numbers
+%                     for JEOL, negative for Varian and Bruker
+%                     due to different rotation directions.
 %
-%   parameters.max_rank - maximum D-function rank to retain in
-%                         the solution (increase till conver-
-%                         gence is achieved, approximately
-%                         equal to the number of spinning si-
-%                         debands in the spectrum)
+%         .axis     - spinning axis, given as a normalized
+%                     3-element vector
 %
-%   parameters.tau_c - correlation times (in seconds) for rotational 
-%                      diffusion. Single number for isotropic rotati-
-%                      onal diffusion, and a 3x3 matrix for anisotro-
-%                      pic rotational diffusion.
+%         .spins    - a cell array giving the spins that 
+%                     the pulse sequence involves, e.g. 
+%                     {'1H','13C'}
 %
-%   parameters.*       - additional subfields may be required by your
-%                        pulse sequence - check its documentation page 
+%         .offset   - a cell array giving transmitter off-
+%                     sets in Hz on each of the spins listed
+%                     in parameters.spins array
+%
+%         .max_rank - maximum D-function rank to retain in
+%                     the solution (increase till conver-
+%                     gence is achieved, approximately
+%                     equal to the number of spinning si-
+%                     debands in the spectrum)
+%
+%         .tau_c   - correlation times (in seconds) for rotational 
+%                    diffusion. Single number for isotropic rotati-
+%                    onal diffusion, and a 3x3 matrix for anisotro-
+%                    pic rotational diffusion.
+%
+%         .*       - additional subfields may be required by your
+%                    pulse sequence - check its documentation page 
 %
 % The parameters structure is passed to the pulse sequence with the follo-
 % wing additional parameters set:
@@ -47,8 +52,10 @@
 %   parameters.spn_dim  - matrix dimension for the spin 
 %                         dynamics subspace
 %
-% This function returns the powder average of whatever it is that the pulse
-% sequence returns.
+% Outputs:
+%
+%     this context function returns the powder average of whatever it 
+%     is that the pulse sequence returns
 %
 % Note: the choice of the Wigner D function rank truncation level depends on
 %       on the spinning rate (the slower the spinning, the greater ranks are

@@ -3,11 +3,11 @@
 %
 %        [Lx,Ly,Lz,D,space_basis]=sle_operators(max_rank)
 %
-% Input parameters:
+% Parameters:
 %
 %     max_rank   - maximum L rank for Wigner D functions
 %
-% Output parameters:
+% Outputs:
 %
 %     space_basis  -   lab space basis set descriptor, in
 %                      [L M N] format, giving indices of
