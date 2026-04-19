@@ -65,9 +65,9 @@ if all(all(rnk==1))
     zy = cell(d+1,1); zy{1}=1; zy{d+1}=1;
     nrm = ones(d,1);
     for k=d:-1:2
-        yx{k}=step_tt_by_cp(yx{k+1},y{k,1},X{k,1},-1);
-        zx{k}=step_tt_by_cp(zx{k+1},z{k,1},X{k,1},-1);
-        zy{k}=step_tt_by_tt(zy{k+1},z{k,1},y{k,1},-1);
+        yx{k}=step_tt_by_cp(yx{k+1},y.cores{k,1},X{k,1},-1);
+        zx{k}=step_tt_by_cp(zx{k+1},z.cores{k,1},X{k,1},-1);
+        zy{k}=step_tt_by_tt(zy{k+1},z.cores{k,1},y.cores{k,1},-1);
         nrm(k)=norm(yx{k},'fro');
         if(nrm(k)>0)
             yx{k}=yx{k}/nrm(k);
@@ -103,7 +103,7 @@ if all(all(rnk==1))
             end
             
             % Check the convergence
-            relative_stepsize=norm(ynew(:)-y{k,1}(:),2)/norm(y{k,1}(:),2);
+            relative_stepsize=norm(ynew(:)-y.cores{k,1}(:),2)/norm(y.cores{k,1}(:),2);
             largest_stepsize=max(largest_stepsize, relative_stepsize);
             
             % Run the truncation
@@ -160,7 +160,7 @@ if all(all(rnk==1))
                 y.cores{k,1} = reshape(U, [ry(k),sz(k,1),sz(k,2),rnew]);
                 
                 % Push the non-orthogonal factor forth the chain                
-                next_core = reshape(y{k+1,1}, [ry(k+1), sz(k+1,1)*sz(k+1,2)*ry(k+2)]);
+                next_core = reshape(y.cores{k+1,1}, [ry(k+1), sz(k+1,1)*sz(k+1,2)*ry(k+2)]);
                 next_core = V*next_core;
                 y.cores{k+1,1} = reshape(next_core, [rnew,sz(k+1,1),sz(k+1,2),ry(k+2)]);
                 
@@ -168,14 +168,14 @@ if all(all(rnk==1))
                 ry(k+1)=rnew;
                 
                 % Update the interfaces
-                yx{k+1}=step_tt_by_cp(yx{k},y{k,1},X{k,1},+1);
+                yx{k+1}=step_tt_by_cp(yx{k},y.cores{k,1},X{k,1},+1);
                 nrm(k)=norm(yx{k+1},'fro');
                 if (nrm(k)>0)
                     yx{k+1}=yx{k+1}/nrm(k);
                 end
                 if opts.enrichment_rank>0
                     zx{k+1}=step_tt_by_cp(zx{k},znew,X{k,1},+1);
-                    zy{k+1}=step_tt_by_tt(zy{k},znew,y{k,1},+1);
+                    zy{k+1}=step_tt_by_tt(zy{k},znew,y.cores{k,1},+1);
                     if (nrm(k)>0)
                         zx{k+1}=zx{k+1}/nrm(k);
                     end
@@ -203,12 +203,11 @@ if all(all(rnk==1))
         flipped = ~flipped;
         
         % And exit only if the direction is correct
-        satisfied = (largest_stepsize<tol) && (iter<=opts.max_swp);
+        satisfied = (largest_stepsize<tol) || (iter>=opts.max_swp);
         
         % Report if necessary
         if opts.verb>0
-            str=sprintf('iter=%d, max_dx=%3.3e, max_r=%d\n',iter, largest_stepsize, max(y.ranks));
-            report(spin_system,str);
+            fprintf('amensum: iter=%d, max_dx=%3.3e, max_r=%d\n',iter, largest_stepsize, max(y.ranks));
         end
         
     end

@@ -18,7 +18,7 @@ if isa(tt,'ttclass')
     if answer
        for n=1:tt.ntrains
            for k=1:tt.ncores
-               answer=isreal(tt{k,n});
+               answer=isreal(tt.cores{k,n});
                if ~answer, return; end
            end
        end 
