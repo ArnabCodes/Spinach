@@ -37,7 +37,7 @@ for na=1:ntrains_a
         for k=1:ncores
             core_b=reshape(b.cores{k,nb},[ranks_b(k,nb),mode_sizes(k,1)*mode_sizes(k,2)*ranks_b(k+1,nb)]);
             core_b=x*core_b;
-            core_b=reshape(core_b,[ranks_a(k,nb)*mode_sizes(k,1)*mode_sizes(k,2),ranks_b(k+1,nb)]);      
+            core_b=reshape(core_b,[ranks_a(k,na)*mode_sizes(k,1)*mode_sizes(k,2),ranks_b(k+1,nb)]);      
             core_a=reshape(a.cores{k,na},[ranks_a(k,na)*mode_sizes(k,1)*mode_sizes(k,2),ranks_a(k+1,na)]);
             x=core_a'*core_b;          
         end

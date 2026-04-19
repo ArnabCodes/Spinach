@@ -51,7 +51,7 @@
 function x=amensolve(A,y,tol,opts,x0)
 
 % Get the default options started
-if isempty(opts), opts=struct; end
+if (nargin<4)||isempty(opts), opts=struct; end
 
 % Maximum number of AMEn sweeps
 if ~isfield(opts, 'nswp');            opts.nswp=20;           end
