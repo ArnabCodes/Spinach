@@ -39,8 +39,9 @@ for n=1:numel(p.suffix)
     end
 end
 
-% Find matrix dimensions
-[nrows,ncols]=size(p);
+% Find the core dimensions
+nrows=prod(cellfun(@(x)size(x,1),p.cores{1}));
+ncols=prod(cellfun(@(x)size(x,2),p.cores{1}));
 
 % Preallocate the answer
 answer=zeros(nrows,ncols);
