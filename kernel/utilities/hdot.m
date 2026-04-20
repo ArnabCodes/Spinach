@@ -1,11 +1,20 @@
-% Hadamard matrix product. Useful as a replacement for 
-% trace(A'*B) because trace(A'*B)=hadm(conj(A),B) and 
-% the latter only needs O(n^2) multiplications as oppo-
-% sed to O(n^3) for trace(A'*B). Syntax: 
+% Hadamard route to Frobenius matrix product. Useful as a 
+% replacement for trace(A'*B) because 
+%
+%               trace(A'*B)=hadm(conj(A),B) 
+%
+% and the latter only needs O(n^2) multiplications as com-
+% pared to O(n^3) for trace(A'*B). Syntax: 
 %
 %                     H=hdot(A,B)
 %
-% where A and B are square matrices and H is a scalar.
+% Parameters:
+%
+%    A,B - square matrices of the same size
+%
+% Ouputs:
+%
+%      H - Frobenius inner product of A and B
 %
 % ilya.kuprov@weizmann.ac.il
 %

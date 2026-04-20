@@ -4,9 +4,6 @@
 
 function polyadic_test_2()
 
-% Set the random seed
-rng(1);
-
 % Get random test matrices
 a=randn(2,2)+1i*randn(2,2);
 b=randn(3,3)+1i*randn(3,3);

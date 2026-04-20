@@ -31,7 +31,7 @@ function [A,B,C,sA,sB,sC]=karplus_fit(dir_path,atoms)
 grumble(dir_path,atoms);
 
 % Get all log files in the directory
-logfiles=dir([dir_path '/*.log']);
+logfiles=dir([dir_path filesep '*.log']);
 
 % Preallocate the arrays
 phi=zeros(numel(atoms),numel(logfiles));
@@ -39,7 +39,7 @@ J=zeros(numel(atoms),numel(logfiles));
 
 % Parse the files
 parfor n=1:numel(logfiles)
-    props{n}=gparse([dir_path '/' logfiles(n).name]);
+    props{n}=gparse([dir_path filesep logfiles(n).name]);
 end
 
 % Extract parameters
@@ -97,8 +97,8 @@ sA=stdevs(1); sB=stdevs(2); sC=stdevs(3);
 kfigure(); plot(phi,J,'ro'); kgrid;
 psi=linspace(0,360,128); hold on; 
 plot(psi,A*cosd(psi).^2+B*cosd(psi)+C,'b-');
-xlabel('Dihedral angle, degrees');
-ylabel('J-coupling, Hz'); axis tight;
+kxlabel('dihedral angle, degrees');
+kylabel('$J$-coupling, Hz'); axis tight;
 
 end
 

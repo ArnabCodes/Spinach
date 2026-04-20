@@ -1,9 +1,9 @@
 % Nucleic acid data import function. Parses PDB and chemical shift
 % data, runs a J-coupling guess using guess_j_nuc.m function and 
-% outputs sys and inter data structures that are required by create.m 
-% gateway function in Spinach. Syntax:
+% outputs sys and inter data structures that are required by the 
+% create.m gateway function in Spinach. Syntax:
 %
-%          [sys,inter]=nuclacid(pdb_file,shift_file,options)
+%       [sys,inter]=nuclacid(pdb_file,shift_file,options)
 %
 % Parameters:
 %
@@ -25,9 +25,7 @@
 %                       and 0 ppm, 'delete' removes them from the
 %                       system
 %
-% 
-% Returns:
-%
+% Outputs:
 %
 %    sys.isotopes          - Nspins x 1 cell array of strings
 %

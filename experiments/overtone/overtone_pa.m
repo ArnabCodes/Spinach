@@ -2,9 +2,7 @@
 %
 %           spectrum=overtone_pa(spin_system,parameters,H,R,K)
 %
-% where H is the hamiltonian commutation superoperator, R is the relaxation
-% superoperator and K is the chemical kinetics superoperator. The following
-% parameters are required:
+% Parameters:
 %
 %    parameters.sweep           vector with two elements giving
 %                               the spectrum frequency extents
@@ -37,17 +35,25 @@
 %                               tonian theory, 'fplanck' uses
 %                               Fokker-Planck formalism
 %
+%    H     - Hamiltonian matrix, received from context function
+%
+%    R     - relaxation superoperator, received from context function
+%
+%    K     - kinetics superoperator, received from context function
+%
 % Outputs:
 %
-%    spectrum                   overtone spectrum
+%    spectrum  - the spectrum of the system with the specified
+%                starting state detected on the specified coil
+%                state within the frequency interval requested
 %
-% Relaxation must be present in the system dynamics, or the matrix
-% inversion operation below would fail to converge. The relaxation
-% matrix should *not* be thermalized.
+% Note: relaxation must be present in the system dynamics, or the matrix 
+%       inversion operation in the overtone_a call would fail. The rela-
+%       xation superoperator R must *not* be thermalised.
 %
 % ilya.kuprov@weizmann.ac.il
 %
-% <https://spindynamics.org/wiki/index.php?title=Overtone_pa.m>
+% <https://spindynamics.org/wiki/index.php?title=overtone_pa.m>
 
 function spectrum=overtone_pa(spin_system,parameters,H,R,K)
 

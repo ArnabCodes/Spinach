@@ -22,7 +22,9 @@
 %
 %    Soshenko et al. Quant. Electronics 51 (2021) 1144
 %
-% The following fields exist the parameters.* structure:
+% Parameters: 
+% 
+%  the following is needed in the parameters.* structure:
 %
 %   .temperature   - temperature, K (default: 298)
 %

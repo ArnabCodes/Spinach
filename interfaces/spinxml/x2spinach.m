@@ -13,6 +13,10 @@
 %                    If chemical shifts are provided, use an
 %                    empty cell array.
 %
+% Outputs:
+%
+%   sys, inter     - Spinach spin system input structures
+%
 % WARNING: this function assumes that the SpinXML file has passed
 %          the validation against the schema, which may be obtain-
 %          ed from http://spindynamics.org/SpinXML.php
