@@ -56,22 +56,30 @@ if all(all(rnk==1))
     % Generate a random initial guess
     [y,~]=ttort(rand(x, opts.init_guess_rank),-1);
     
-    % Generate a random enrichment
-    [z,~]=ttort(rand(x, opts.enrichment_rank),-1);
+    % Generate a random enrichment if requested
+    if opts.enrichment_rank>0
+        [z,~]=ttort(rand(x, opts.enrichment_rank),-1);
+    end
     
     % Precompute interfaces of projections Y'X Z'X and Z'Y
     yx = cell(d+1,1); yx{1}=ones(1,N); yx{d+1}=ones(N,1);
-    zx = cell(d+1,1); zx{1}=ones(1,N); zx{d+1}=ones(N,1);
-    zy = cell(d+1,1); zy{1}=1; zy{d+1}=1;
+    if opts.enrichment_rank>0
+        zx = cell(d+1,1); zx{1}=ones(1,N); zx{d+1}=ones(N,1);
+        zy = cell(d+1,1); zy{1}=1; zy{d+1}=1;
+    end
     nrm = ones(d,1);
     for k=d:-1:2
         yx{k}=step_tt_by_cp(yx{k+1},y.cores{k,1},X{k,1},-1);
-        zx{k}=step_tt_by_cp(zx{k+1},z.cores{k,1},X{k,1},-1);
-        zy{k}=step_tt_by_tt(zy{k+1},z.cores{k,1},y.cores{k,1},-1);
+        if opts.enrichment_rank>0
+            zx{k}=step_tt_by_cp(zx{k+1},z.cores{k,1},X{k,1},-1);
+            zy{k}=step_tt_by_tt(zy{k+1},z.cores{k,1},y.cores{k,1},-1);
+        end
         nrm(k)=norm(yx{k},'fro');
         if(nrm(k)>0)
             yx{k}=yx{k}/nrm(k);
-            zx{k}=zx{k}/nrm(k);
+            if opts.enrichment_rank>0
+                zx{k}=zx{k}/nrm(k);
+            end
         end
     end
     
@@ -85,7 +93,10 @@ if all(all(rnk==1))
         iter=iter+1;
         
         % Read current ranks of approximation
-        ry=y.ranks; rz=z.ranks; sz=x.sizes;
+        ry=y.ranks; sz=x.sizes;
+        if opts.enrichment_rank>0
+            rz=z.ranks;
+        end
         
         % The difference between two consequitive iterations
         largest_stepsize=0;
@@ -186,16 +197,23 @@ if all(all(rnk==1))
         end
         
         % Reverse the trains
-        X = X(d:-1:1); y=revert(y); z=revert(z); x=revert(x);
+        X = X(d:-1:1); y=revert(y); x=revert(x);
+        if opts.enrichment_rank>0
+            z=revert(z);
+        end
         
         % Reverse the projections
         yx(2:d) = yx(d:-1:2);
-        zx(2:d) = zx(d:-1:2);
-        zy(2:d) = zy(d:-1:2);
+        if opts.enrichment_rank>0
+            zx(2:d) = zx(d:-1:2);
+            zy(2:d) = zy(d:-1:2);
+        end
         for k=2:d
             yx{k} = yx{k}.';
-            zx{k} = zx{k}.';
-            zy{k} = zy{k}.';
+            if opts.enrichment_rank>0
+                zx{k} = zx{k}.';
+                zy{k} = zy{k}.';
+            end
         end
         nrm=nrm(d:-1:1);
         
