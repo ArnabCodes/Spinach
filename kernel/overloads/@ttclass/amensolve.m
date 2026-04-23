@@ -210,7 +210,8 @@ while ~satisfied
             if k>1
                 
                 % Compute the SVD
-                [u,s,v] = svd(current_block,'econ'); s = diag(s);
+                [u,s,v] = svd(current_block,'econ'); s = real(diag(s));
+                s(abs(s)<1e-10)=0;
                 
                 % Select the rank based on Fro-norm thresholding
                 new_rx = frob_chop(s,local_tolerance*norm(s,2)); 
@@ -388,6 +389,12 @@ while ~satisfied
     % Count the number of sweeps
     if ~flipped, iter = iter+1; end
     
+end
+
+% Restore the original core ordering if the final sweep ended flipped
+if flipped
+    x=revert(x);
+    sz=sz(d:-1:1);
 end
 
 % Cast spatial solution to the desired form
