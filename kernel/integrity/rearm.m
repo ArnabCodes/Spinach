@@ -24,7 +24,8 @@ exceptions={};
 mfiles=cell(numel(top_level,1));
 P=mfilename('fullpath'); P=P(1:(end-5));
 for n=1:numel(top_level)
-    mfiles{n}=dir([P '../../' top_level{n} '/**/*.m']);
+    mfiles{n}=dir([P '..' filesep '..' filesep ...
+                   top_level{n} filesep '**' filesep '*.m']);
 end
 
 % Get the table going

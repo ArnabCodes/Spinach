@@ -46,6 +46,10 @@
 %
 % F                         Fokker-Planck diffusion and flow superoperator
 %
+% Outputs:
+%
+%    fid - SPENDOSYCOSY free induction decay as a 3D array
+%
 % Note: the last five parameters are built automatically by the imaging
 %       context function.
 %

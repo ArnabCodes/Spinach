@@ -2,10 +2,20 @@
 %
 % #NORMOK               ttnorm=norm(ttrain,norm_type)
 %
+% Parameters:
+%
+%    ttrain - a tensor train representation of a matrix
+%
+%    norm_type:
+%
 %       norm_type=1         returns the 1-norm
 %       norm_type=inf       returns the inf-norm
 %       norm_type=2         returns the 2-norm
 %       norm_type='fro'     returns the Frobenius norm
+%
+% Outputs:
+%
+%    ttnorm - a positive real number
 %
 % Note: norms other than Frobenius norm are expensive for tensor trains.
 %

@@ -12,7 +12,7 @@
 %
 %    A,B - square matrices of the same size
 %
-% Ouputs:
+% Outputs:
 %
 %      H - Frobenius inner product of A and B
 %

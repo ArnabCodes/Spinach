@@ -5,15 +5,23 @@
 %
 %                         fid2ascii(filename,fid)
 %
-% where file_name is a character string and fid is a numeric data array
-% (structure arrays must be exported field by field).
+% Parameters:
+%
+%    filename - a character string 
+%
+%    fid      - a numeric data array (structure arrays
+%               must be exported field by field)
+%
+% Outputs:
+%
+%    this function writes a file
 %
 % Note: complex data is exported as a double point count in the first di-
 %       mension. First the reals are given, then the imags.
 %
 % ilya.kuprov@weizmann.ac.il
 %
-% <https://spindynamics.org/wiki/index.php?title=Fid2ascii.m>
+% <https://spindynamics.org/wiki/index.php?title=fid2ascii.m>
 
 function fid2ascii(file_name,fid)
 

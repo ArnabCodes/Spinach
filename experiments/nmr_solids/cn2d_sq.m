@@ -2,6 +2,10 @@
 % experiment described by Jarvis, Haies, Williamson and Carravetta in
 %
 %                  http://dx.doi.org/10.1039/c3cp50787d
+%
+% Syntax:
+%
+%                fid=cn2d_sq(spin_system,parameters,H,R,K)
 %  
 % Parameters:
 %

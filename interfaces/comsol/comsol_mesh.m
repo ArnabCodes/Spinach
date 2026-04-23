@@ -6,7 +6,7 @@
 %
 %    file_name    - a character string
 %
-% Ouputs:
+% Outputs:
 %
 %       mesh.x, mesh.y      - column vectors with vertex
 %                             coordinates

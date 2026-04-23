@@ -4,7 +4,11 @@
 %
 %     [res_num,res_typ,pdb_id,coords]=read_pdb_nuc(pdb_file_name)
 %
-% Output parameters:
+% Parameters:
+%
+%     pdb_file_name - a character string
+%
+% Outputs:
 %
 %     nuc_num  - nspins x 1 vector giving the number of the
 %                nucleotide to which each spin belongs

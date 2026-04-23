@@ -31,22 +31,22 @@ if isMATLABReleaseOlderThan('R2024b')
 end
 
 % Existential toolboxes
-if ~exist([matlabroot '/toolbox/parallel'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'parallel'],'dir')
     error('Spinach requires Parallel Computing Toolbox.');
 end
-if ~exist([matlabroot '/toolbox/nnet'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'nnet'],'dir')
     error('Spinach requires Deep Learning Toolbox.');
 end
-if ~exist([matlabroot '/toolbox/rl'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'rl'],'dir')
     error('Spinach requires Reinforcement Learning Toolbox.');
 end
-if ~exist([matlabroot '/toolbox/optim'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'optim'],'dir')
     error('Spinach requires Optimisation Toolbox.');
 end
-if ~exist([matlabroot '/toolbox/stats'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'stats'],'dir')
     error('Spinach requires Statistics and Machine Learning Toolbox.');
 end
-if ~exist([matlabroot '/toolbox/map'],'dir')
+if ~exist([matlabroot filesep 'toolbox' filesep 'map'],'dir')
     error('Spinach requires Mapping Toolbox.');
 end
 

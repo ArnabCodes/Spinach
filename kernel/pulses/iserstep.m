@@ -178,28 +178,6 @@ end
 
 end
 
-% Consistency enforcement
-function grumble(LTM,rho_a,dt)
-if ~iscell(LTM)
-    error('second input must be a cell array.');
-end
-if ~isa(LTM{1},'function_handle')
-    error('evolution generator must be a function handle.');
-end
-if (~isnumeric(LTM{2}))||(~isscalar(LTM{2}))
-    error('current time must be a numeric scalar.');
-end
-if ~ischar(LTM{3})
-   error('method must be a character string.')
-end
-if (~isnumeric(dt))||(~isnumeric(rho_a))
-    error('rho_a and dt must be numeric.');
-end
-if ~isscalar(dt)
-    error('dt must be a scalar.');
-end
-end
-
 % Explicit Runge-Kutta-Munthe-Kaas step
 function rho_b=RKMK(order_or_name,spin_system,L,t,rho_a,dt,varargin)
 
@@ -488,6 +466,28 @@ switch name
 
 end
 
+end
+
+% Consistency enforcement
+function grumble(LTM,rho_a,dt)
+if ~iscell(LTM)
+    error('second input must be a cell array.');
+end
+if ~isa(LTM{1},'function_handle')
+    error('evolution generator must be a function handle.');
+end
+if (~isnumeric(LTM{2}))||(~isscalar(LTM{2}))
+    error('current time must be a numeric scalar.');
+end
+if ~ischar(LTM{3})
+    error('method must be a character string.')
+end
+if (~isnumeric(dt))||(~isnumeric(rho_a))
+    error('rho_a and dt must be numeric.');
+end
+if ~isscalar(dt)
+    error('dt must be a scalar.');
+end
 end
 
 % The last bunch of pickets were carrying signs that 

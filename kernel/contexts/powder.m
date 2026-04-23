@@ -170,8 +170,8 @@ end
 parameters.spc_dim=1; parameters.spn_dim=size(I,1);
 
 % Get the averaging grid as a Matlab structure
-sph_grid=load([spin_system.sys.root_dir '/kernel/grids/' ...
-               parameters.grid],'alphas','betas','gammas','weights');
+sph_grid=load([spin_system.sys.root_dir filesep 'kernel' filesep 'grids' ... 
+               filesep parameters.grid],'alphas','betas','gammas','weights');
            
 % Assign local variables
 alphas=sph_grid.alphas; betas=sph_grid.betas; 

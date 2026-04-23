@@ -22,7 +22,9 @@
 %               grids use 'D_lmn', for two-angle grids use
 %               'Y_lm', for single-angle grids use 'Y_l0'.
 %
-% The output is a vector of residual norms in each spherical rank.
+% Outputs:
+%
+%  grid_profile - a vector of residual norms in each spherical rank
 %
 % ilya.kuprov@weizmann.ac.il
 %

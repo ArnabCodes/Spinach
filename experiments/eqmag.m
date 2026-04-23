@@ -3,7 +3,7 @@
 % cified in sys.magnet (assumed to be along the Z-axis), averaged over 
 % system orientations using the spherical grid specified. Syntax:
 %
-%                   magn=eqmag(spin_system,parameters)
+%                  magn=eqmag(spin_system,parameters)
 %
 % Parameters:
 %
@@ -39,8 +39,8 @@ end
 
 % Get Sx Sy Sz operators for each spin
 for n=nspins:-1:1
-    Sx{n}=(operator(spin_system,{'L+'},{n})+operator(spin_system,{'L-'},{n}))/2;
-    Sy{n}=(operator(spin_system,{'L+'},{n})-operator(spin_system,{'L-'},{n}))/2i;
+    Sx{n}=operator(spin_system,{'Lx'},{n});
+    Sy{n}=operator(spin_system,{'Ly'},{n});
     Sz{n}=operator(spin_system,{'Lz'},{n});
 end
 
@@ -51,7 +51,8 @@ problem_dim=prod(spin_system.comp.mults);
 [I,Q]=hamiltonian(assume(spin_system,'labframe'));
 
 % Load the spherical grid
-sph_grid=load([spin_system.sys.root_dir '/kernel/grids/' parameters.grid '.mat']);
+sph_grid=load([spin_system.sys.root_dir filesep 'kernel' ...
+               filesep 'grids' filesep parameters.grid '.mat']);
 weights=sph_grid.weights; alphas=sph_grid.alphas;
 betas=sph_grid.betas; gammas=sph_grid.gammas;
 

@@ -3,13 +3,20 @@
 %
 %    [product_table_left,product_table_right]=ist_product_table(mult)
 %
-% The input parameter is the multiplicity of the spin in question. Output
-% contains the structure coefficients in the following conventions (T{m}
-% and T{k} are normalised):
+% Parameters:
 %
-%            T{n}*T{m}=...+product_table_left(n,m,k)*T{k}+...
+%    mult - multiplicity (number of energy levels) of
+%           the spin in question
 %
-%            T{m}*T{n}=...+product_table_right(n,m,k)*T{k}+...
+% Outputs:
+%
+%     product_table_left
+%     product_table_right - structure coefficients in
+%                           the following conventions:
+%
+%           T{n}*T{m}=...+product_table_left(n,m,k)*T{k}+...
+%
+%           T{m}*T{n}=...+product_table_right(n,m,k)*T{k}+...
 %
 % corresponding to the IST expansion of the left and the right multiplica-
 % tive action by T{n} on T{m} as given in Eq 7.18 of the first edition of

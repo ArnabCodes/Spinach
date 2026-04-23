@@ -17,9 +17,13 @@
 %      direction  - direction in which the spins should be lo-
 %                   cked, 'X' or 'Y'.
 %
+% Outputs:
+%
+%      rho        - state vector or a bookshelf stack thereof
+%
 % Note: this is an approximation to what happens during a real spin locking
 %       process. If you need a very accurate simulation, you would need to
-%       model the spin locking explicity by adding RF terms to the system
+%       model the spin locking explicitly by adding RF terms to the system
 %       Hamiltonian.
 %
 % ilya.kuprov@weizmann.ac.il

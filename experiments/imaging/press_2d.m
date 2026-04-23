@@ -80,7 +80,7 @@ fid=acquire(spin_system,parameters,H+F,R,K);
 end
 
 % Consistency enforcement
-function grumble(spin_system,parameters,H,R,K,G,F) %#ok<INUSL>
+function grumble(spin_system,parameters,H,R,K,G,F)
 if ~strcmp(spin_system.bas.formalism,'sphten-liouv')
     error('this function is only available in sphten-liouv formalism.');
 end

@@ -5,7 +5,7 @@
 %
 %            direction=lbfgs(dx_hist,dg_hist,g)
 %
-% Arguments:
+% Parameters:
 %
 %    dx_hist         - history of x increments, a stack 
 %                      of column vectors, from the latest
@@ -17,7 +17,7 @@
 %
 %    g               - current gradient
 %
-% Returns:
+% Outputs:
 %
 %    direction       - LBFGS approximation to the 
 %                      maximisation step vector

@@ -2,13 +2,18 @@
 %
 %              [pt_left,pt_right]=st_product_table(nlevels)
 %
-% The input parameter is the dimension of the density matrix. The out-
-% put contains structure coefficients in the following conventions
-% (S{m} and S{k} are normalised):
+% Parameters:
 %
-%                 S{n}*S{m}=...+pt_left(n,m,k)*S{k}+...
+%    nlevels - the number of energy levels in the system
 %
-%                 S{m}*S{n}=...+pt_right(n,m,k)*S{k}+...
+% Outputs:
+%
+%     pt_left, pt_right - structure coefficients in
+%                         the following conventions:
+%
+%               S{n}*S{m}=...+pt_left(n,m,k)*S{k}+...
+%
+%               S{m}*S{n}=...+pt_right(n,m,k)*S{k}+...
 %
 % corresponding to the expansion of the left and the right multiplica-
 % tive action by S{n} on S{m} as given in Eq 7.18 of the first edition

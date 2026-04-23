@@ -1,12 +1,13 @@
 % Singlet-singlet RYDMR experiment with exponential recombination
 % function (http://dx.doi.org/10.1080/00268979809483134). Syntax:
 %
-%             A=rydmr_exp(spin_system,parameters,H,R,K)
+%            A=rydmr_exp(spin_system,parameters,H,R,K)
 %
 % where H is the Hamiltonian commutation superoperator in zero ex-
 % ternal field, R is the relaxation superoperator and K is the che-
-% mical kinetics superoperator. The following parameters are requi-
-% red:
+% mical kinetics superoperator.
+%
+% Parameters:
 %
 %    parameters.fields  -  row vector of field values, Tesla; the
 %                          primary magnet field should be set to
@@ -23,7 +24,7 @@
 %                         separate Zeeman operator for field sweep 
 %                         purposes
 %
-% Output:
+% Outputs:
 %
 %       A - a matrix of singlet yields with dimensions
 %           matching the sizes of parameters.rates and

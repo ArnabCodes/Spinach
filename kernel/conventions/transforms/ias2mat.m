@@ -40,16 +40,16 @@ end
 % Consistency enforcement
 function grumble(a,d,A)
 if (~isnumeric(a))||(~isreal(a))||(~isscalar(a))
-	error('a must be a real scalar.');
+    error('a must be a real scalar.');
 end
 if (~isnumeric(d))||(~isreal(d))||...
    (size(d,1)~=3)||(size(d,2)~=1)
-	error('d must be a real 3x1 vector.');
+    error('d must be a real 3x1 vector.');
 end 
 if (~isnumeric(A))||(~isreal(A))||...
    (size(A,1)~=3)||(size(A,2)~=3)||...
    (norm(A-A',2)/norm(A,2)>1e-6)
-	error('A must be a real symmetric 3x3 matrix.');
+    error('A must be a real symmetric 3x3 matrix.');
 end 
 end
 

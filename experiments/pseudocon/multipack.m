@@ -3,14 +3,14 @@
 %
 %                     Ilm=multipack(ranks,moments)
 %
-% Inputs:
+% Parameters:
 %
 %      ranks - a vector of spherical ranks present, e.g. [0 1 2]
 %
 %      moments - a vector of multipole moments for each rank,
 %                arranged in a linear stream
 %
-% Output:
+% Outputs:
 %
 %      Ilm   - a cell array of vector corresponding to the multipole
 %              moments defined in http://dx.doi.org/10.1039/c6cp05437d

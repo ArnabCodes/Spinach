@@ -2,7 +2,7 @@
 %
 %        fid=psyche_1d(spin_system,parameters,H,R,K,G,F)
 %
-% The following parameters are required:
+% Parameters:
 %
 %      parameters.rho0           initial state
 %
@@ -38,6 +38,10 @@
 %
 %      F                         Fokker-Planck diffusion and flow super-
 %                                operator, received from the context
+%
+% Outputs:
+%
+%      fid - a PSYCHE free induction decay as a 2D array
 %
 % mohammadali.foroozandeh@chem.ox.ac.uk
 % mariagrazia.concilio@sjtu.edu.cn
