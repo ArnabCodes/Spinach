@@ -21,8 +21,15 @@
 
 function r=frob_chop(s,tol)
 
+% Remove tiny negative round-off artefacts
+s=real(s(:));
+s(abs(s)<1e-12)=0;
+
 % Check consistency
 grumble(s,tol);
+
+% Project any remaining tiny negative round-off to zero
+s=max(s,0);
 
 % Find the cutting point
 x=cumsum(s(end:-1:1).^2);
@@ -42,7 +49,10 @@ function grumble(s,tol)
 if (~isnumeric(tol))||(~isreal(tol))||(~isscalar(tol))||(tol<0)
     error('tol must be a non-negative real scalar.');
 end
-if (~isnumeric(s))||(~isreal(s))||(~isvector(s))||any(s<0)
+if (~isnumeric(s))||(~isvector(s))
+    error('s must be a vector of non-negative real numbers.');
+end
+if any(~isfinite(s(:)))||any(abs(imag(s(:)))>1e-10)||any(real(s(:))<-1e-10)
     error('s must be a vector of non-negative real numbers.');
 end
 end
