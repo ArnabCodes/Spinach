@@ -118,8 +118,8 @@ end
 if ~isfield(parameters,'coil_st')
     error('parameters.coil_st field must be present.');
 end
-if (~iscell(parameters.coil_st))||(numel(parameters.coil_st)~=1)||(~ischar(parameters.coil_st{1}))
-    error('parameters.coil_st must be a cell array containing one state specification.');
+if ~iscell(parameters.coil_st)
+    error('parameters.coil_st must be a cell array.');
 end
 if ~isfield(parameters,'dec_time')
     error('sequence duration must be specfied in parameters.dec_time field.');
