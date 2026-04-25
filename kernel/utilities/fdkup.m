@@ -10,7 +10,7 @@
 %
 %                  K=fdkup(npoints,extents,chi,nstenc)
 %
-% The following parameters are needed:
+% Parameters:
 % 
 %     npoints -  a three-element vector specifying the dimensions
 %                of the 3D cube of data that the operator will be

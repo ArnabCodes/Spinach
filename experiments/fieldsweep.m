@@ -1,8 +1,8 @@
-% Field swept powder EPR spectra. A very rough implementation using
-% expensive eigenfields algorithm, an explicit spherical grid, and
-% a hard-coded Lorentzian line shape function in Fermi Golden Rule.
+% Field swept powder EPR spectra. A rough implementation with ex-
+% pensive eigenfields algorithm, an explicit spherical grid, and
+% a hard-coded Lorentzian line shape. Syntax:
 %
-%          [b_axis,spec]=fieldsweep(spin_system,parameters)
+%        [b_axis,spec]=fieldsweep(spin_system,parameters)
 %
 % Parameters:
 %

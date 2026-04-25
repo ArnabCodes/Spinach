@@ -4,7 +4,7 @@
 %
 %                   rho=step(spin_system,L,rho,time_step)
 %
-% Arguments:
+% Parameters:
 %
 %      L          -  Liouvillian or Hamiltonian to be used for 
 %                    propagation; centre point piecewise-constant
@@ -20,9 +20,13 @@
 %                    documentation), the problem is routed to a
 %                    an appropriate Lie group solver. 
 %
-%      rho        -  state vector or density matrix to be propagated
+%      rho        -  state vector or density matrix
 %
 %      time_step  -  length of the time step to take
+%
+% Outputs:
+%
+%      rho        -  state vector or density matrix
 %
 % Note: we initially had a faithful implementation of the Krylov process
 %       here - subspace, orthogonalisation, projection, etc., but in all

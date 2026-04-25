@@ -2,12 +2,10 @@
 %
 %           spectrum=overtone_cp(spin_system,parameters,H,R,K)
 %
-% where H is the hamiltonian commutation superoperator, R is the relaxation
-% superoperator and K is the chemical kinetics superoperator. The following
-% parameters are required:
+% Parameters:
 %
-%    parameters.spins           overtone-active nucleus, specified as a
-%                               single-element cell array
+%    parameters.spins           overtone-active nucleus, specified 
+%                               as a single-element cell array
 %
 %    parameters.spc_dim         Fokker-Planck spatial dimension
 %
@@ -41,13 +39,23 @@
 %
 %    parameters.rf_dur          spin-lock pulse duration, seconds
 %
-% Relaxation must be present in the system dynamics, or the matrix
-% inversion operation below would fail to converge. The relaxation
-% matrix should *not* be thermalized.
+%    H     - Hamiltonian matrix, received from context function
+%
+%    R     - relaxation superoperator, received from context function
+%
+%    K     - kinetics superoperator, received from context function
+%
+% Outputs:
+%
+%    spectrum - the resulting spectrum
+%
+% Notes: relaxation must be present in the system dynamics, or the 
+%        matrix inversion in overtone_a function call would fail to
+%        converge. The relaxation matrix must *not* be thermalised.
 %
 % ilya.kuprov@weizmann.ac.il
 %
-% <https://spindynamics.org/wiki/index.php?title=Overtone_cp.m>
+% <https://spindynamics.org/wiki/index.php?title=overtone_cp.m>
 
 function spectrum=overtone_cp(spin_system,parameters,H,R,K)
 

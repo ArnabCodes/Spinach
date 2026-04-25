@@ -41,6 +41,10 @@
 %                            gation, 'evolution' for Spin-
 %                            ach evolution function
 %
+% Outputs:
+%
+%     fid - dynamics of the coil state as a function of time
+%
 % ilya.kuprov@weizmann.ac.il
 %
 % <https://spindynamics.org/wiki/index.php?title=sp_acquire.m>

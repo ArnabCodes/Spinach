@@ -3,7 +3,7 @@
 %
 %              rho=state(spin_system,states,spins,method)
 %
-% This function supports three types of calls:
+% Parameters:
 %
 % 1. If states is a string and spins is a string
 %
@@ -30,7 +30,7 @@
 % 3. If states is a cell array of strings and spins is a cell array
 %    of numbers:
 %
-%                      states={'Lz','L+'}; spins={1,2};
+%                    states={'Lz','L+'}; spins={1,2};
 %
 % then a product state density matrix (Hilbert space) or state vector
 % (Liouville space) is produced. In the case above, Spinach will gene-
@@ -66,8 +66,6 @@
 %     rho     - a Hilbert space density matrix or a Liouville
 %               space state vector
 %
-% TODO: Callum to update the grumbler block. 
-% 
 % d.savostyanov@soton.ac.uk
 % luke.edwards@ucl.ac.uk
 % ilya.kuprov@weizmann.ac.il
@@ -259,8 +257,6 @@ if ~ismember(spin_system.bas.formalism,{'zeeman-hilb', 'zeeman-liouv',...
                                         'sphten-liouv','zeeman-wavef'})
     error('unknown formalism specification.');
 end
-
-% Check which format is allowed in which formalism - Callum
 
 % Check method
 if ~ischar(method)

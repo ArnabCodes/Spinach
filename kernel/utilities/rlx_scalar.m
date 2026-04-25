@@ -51,7 +51,7 @@ for n=1:numel(tau_c_array)
         % Remove inconsequential non-zeroes from H0
         H0=clean_up(spin_system,H0,1e-2/upper_limit);
 
-    	% Take the integral using the auxiliary matrix exponential technique
+        % Take the integral using the auxiliary matrix exponential technique
         R=R-weight*H1*expmint(spin_system,H0,H1',H0+(1i/tau_c)*speye(size(H0)),upper_limit);
     
     end

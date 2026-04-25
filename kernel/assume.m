@@ -1,20 +1,39 @@
 % Sets case-specific assumptions for various simulation contexts. This
 % function determines the behaviour of the Hamiltonian generation func-
-% tion and should be called before the Hamiltonian is requested.
-%
-% The function text is self-explanatory -- interaction strength parame-
-% ters are set in each section according to the physical requirements
+% tion and should be called before the Hamiltonian is requested. The 
+% function text is self-explanatory - interaction strength parameters
+% are set in each section according to the physical requirements of
 % of each specific simulation context. Syntax:
 %
 %        spin_system=assume(spin_system,assumptions,retention)
 %
-% where assumptions may be set to 'nmr' (high-field NMR), 'esr' (elec-
-% tron rotating frame ESR), 'deer' (DEER spectroscopy), and some other
-% more specialized assumption sets used by other Spinach functions.
-% 
-% The retention argument may be set to 'zeeman' (in which case all spin-
-% spin couplings are ignored) or 'couplings' (in which case all Zeeman
-% interactions are ignored).
+% Parameters:
+%
+%    assumptions - 'nmr'  for high-field NMR)
+%
+%                  'esr'  for electron rotating frame ESR
+%
+%                  'deer' for DEER spectroscopy
+%
+%                  'deer-zz' for DEER spectroscopy with electron
+%                            flip-flop terms removed
+%
+%                  'labframe' for full laboratory frame simulation
+%                             with all Hamiltonian terms retained
+%
+%                  'qnmr'     for quadrupolar NMR with numerical 
+%                             rotating frames: spin-1/2 particles
+%                             will be in the rotating frame but
+%                             spin>1/2 particles initially in the
+%                             laboratory frame
+%
+%    retention  -  'zeeman' drops all spin-spin interactions 
+%
+%                  'couplings' drops all Zeeman interactions
+%
+% Outputs:
+%
+%    the function updates the spin_system object
 %
 % ilya.kuprov@weizmann.ac.il
 %

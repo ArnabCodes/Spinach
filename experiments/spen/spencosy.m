@@ -2,49 +2,53 @@
 %
 %         fid=spencosy(spin_system,parameters,H,R,K,G,F)
 %
-% The following parameters are required
+% Parameters:
 %
-% parameters.dims           size of the sample in m
+%   parameters.dims           size of the sample in m
 %
-% parameters.npts           number of spin packets
+%   parameters.npts           number of spin packets
 %
-% parameters.spins          nuclei on which the sequence runs
+%   parameters.spins          nuclei on which the sequence runs
 %
-% parameters.deltat         timestep for acquisition
+%   parameters.deltat         timestep for acquisition
 %
-% parameters.npoints        number of acquired points for each
-%                           gradient readout
+%   parameters.npoints        number of acquired points for each
+%                             gradient readout
 %
-% parameters.nloops         number of loop, where each loop consists of
-%                           a positive and a negative readout
+%   parameters.nloops         number of loop, where each loop consists of
+%                             a positive and a negative readout
 %
-% parameters.Ga             acquisition gradient in T/m
+%   parameters.Ga             acquisition gradient in T/m
 %
-% parameters.pulsenpoints   number of points in the pulse shape
+%   parameters.pulsenpoints   number of points in the pulse shape
 %
-% parameters.nWURST         smoothing factor for the pulse
+%   parameters.nWURST         smoothing factor for the pulse
 %
-% parameters.Te             duration of the pulse
+%   parameters.Te             duration of the pulse
 %
-% parameters.BW             bandwidth of the pulse
+%   parameters.BW             bandwidth of the pulse
 %
-% parameters.Ge             encoding gradient in T/m
+%   parameters.Ge             encoding gradient in T/m
 %
-% parameters.Gp             coherence selection gradient in T/m
+%   parameters.Gp             coherence selection gradient in T/m
 %
-% parameters.Tp             duration of the coherence selection gradient
+%   parameters.Tp             duration of the coherence selection gradient
 %
-% parameters.D              diffusion constant, m^2/s
+%   parameters.D              diffusion constant, m^2/s
 %
-% H                         Fokker-Planck Hamiltonian
+%   H                         Fokker-Planck Hamiltonian
 %
-% R                         Fokker-Planck relaxation superoperator
+%   R                         Fokker-Planck relaxation superoperator
 %
-% K                         Fokker-Planck kinetics superoperator
+%   K                         Fokker-Planck kinetics superoperator
 %
-% G                         Fokker-Planck gradient superoperators
+%   G                         Fokker-Planck gradient superoperators
 %
-% F                         Fokker-Planck diffusion and flow superoperator
+%   F                         Fokker-Planck diffusion and flow superoperator
+%
+% Outputs:
+%
+%   fid                       UFCOSY free induction decay 
 %
 % Note: the last five parameters are built automatically by the imaging
 %       context function.

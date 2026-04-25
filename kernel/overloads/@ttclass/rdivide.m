@@ -2,8 +2,15 @@
 %
 %                    c=rdivide(a,b)
 %
-% The first input should be a ttclass object and the 
-% second one a scalar.
+% Parameters:
+%
+%    a - a ttclass object
+%
+%    b - a numeric scalar
+%
+% Outputs:
+%
+%    c - a ttclass object
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il

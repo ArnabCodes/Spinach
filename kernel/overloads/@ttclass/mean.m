@@ -3,8 +3,16 @@
 %
 %               answer=mean(ttrain,dim)
 %
-% The mean value is computed along the specified dimen-
-% sion (dim=1 or dim=2).
+% Parameters:
+%
+%    ttrain - a tensor train representation of a matrix
+%
+%    dim    - dimension to operate on (dim=1 or dim=2)
+%
+% Outputs:
+%
+%    answer - the mean value computed along the speci-
+%             fied dimension
 %
 % d.savostyanov@soton.ac.uk
 %

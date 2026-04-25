@@ -1,22 +1,23 @@
 % A parser for Gaussian (03, 09, 16) calculation logs. Ex-
-% tracts all potentially useful information. The following
-% options must be added to the route section of the input
-% file to produce a useful log:
+% tracts all potentially useful information. Syntax:
 %
-%       #p nmr=(giao,spinspin,susceptibility) 
-%          output=pickett pop=minimal IOp(6/82=1)
+%             props=gparse(filename,options)
 %
-% The options parameter controls the symmetrization of the
-% interaction tensors after they have been read in. By de-
-% fault all tensors are symmetrized. The symmetrization may
-% be turned off by adding the following strings to the op-
-% tions cell array:
+% Parameters:
 %
-%         'g_nosymm', 'cst_nosymm', 'hfc_nosymm'
+%    file_name - a character strong with a file name
 %
-% The following output fields are returned if the corres-
-% ponding information is found in the file:
-%             
+%    options   - symmetrisation of the interaction 
+%                tensors. By default all tensors are
+%                symmetrised. The symmetrisation may
+%                be turned off by adding the following
+%                strings to the options cell array:
+%
+%                      'g_nosymm', 'cst_nosymm', 
+%                            'hfc_nosymm'
+%
+% Outputs:
+%
 %   props.inp_geom         - input geometry (Angstrom)
 %   props.std_geom         - standard geometry (Angstrom)
 %   props.natoms           - number of atoms
@@ -45,6 +46,13 @@
 %   props.filename         - log file name
 %   props.error            - true if the calculation
 %                            contains an error of any type
+%
+% Notes: the following keywords must be added to the route
+%        section of the Gaussian input file to produce a 
+%        useful log:
+%
+%          #p nmr=(giao,spinspin,susceptibility) 
+%             output=pickett pop=minimal IOp(6/82=1)
 %
 % gareth.charnock@oerc.ox.ac.uk
 % jennifer.handsel@stx.ox.ac.uk

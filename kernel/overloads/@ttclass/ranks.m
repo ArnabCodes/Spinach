@@ -1,9 +1,16 @@
 % Returns the bond dimensions of a tensor train. Syntax:
 %
-%                    ttranks=ranks(ttrain)
+%                  ttranks=ranks(ttrain)
 %
-% The output is (ncores+1) by (ntrains) array. The first
-% and the last elements for each train are 1.
+% Parameters:
+%
+%    ttrain - a tensor train object
+%
+% Outputs:
+%
+%    ttranks - (ncores+1) by (ntrains) array; the 
+%              first and the last elements for each
+%              train are 1
 %
 % d.savostyanov@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il

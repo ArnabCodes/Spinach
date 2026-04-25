@@ -2,7 +2,7 @@
 %
 %             [ax,ax_label]=axis_1d(spin_system,parameters)
 %
-% Inputs:
+% Parameters:
 %
 %    parameters.sweep  -  either a one-element array giving the sweep width
 %                         in Hz, or a two-element array giving the spectral

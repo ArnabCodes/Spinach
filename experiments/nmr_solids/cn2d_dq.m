@@ -3,6 +3,10 @@
 %
 %                 http://dx.doi.org/10.1039/c3cp50787d
 %
+% Syntax:
+%
+%               fid=cn2d_dq(spin_system,parameters,H,R,K)
+%
 % Parameters:
 %
 %        parameters.spins    - isotopes to which the sequence is

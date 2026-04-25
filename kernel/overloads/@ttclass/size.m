@@ -1,7 +1,7 @@
 % Returns the size of the matrix represented by a tensor train.
 % The output mimics Matlab's size function. Syntax:
 %
-%                       [m,n]=size(tt,dim)
+%                      [m,n]=size(tt,dim)
 %
 % Parameters:
 %
@@ -9,7 +9,7 @@
 %
 %    dim - (optional) integer specifying dimension
 %
-% Ouputs:
+% Outputs:
 %
 %    m,n - integers sepcifying the dimensions
 %

@@ -5,7 +5,7 @@
 %   [alpha,fx]=cubic_interp(end_A,end_B,alpha_A,alpha_B,...
 %                           f_A,dir_deriv_A,f_B,dir_deriv_B)
 %
-% Arguments:
+% Parameters:
 %
 %    end_a      - first interpolation boundary in alpha space
 %
@@ -23,7 +23,7 @@
 %
 %    dir_der_b  - directional derivative at alpha_b
 %
-% Returns:
+% Outputs:
 %
 %    alpha      - selected maximiser of the cubic model
 %
@@ -100,9 +100,9 @@ if isempty(dir_der_b)||(~isnumeric(dir_der_b))||(~isreal(dir_der_b))||(~isscalar
 end
 end
 
-% It is baked beans that should be banned.
+% It is baked beans that should be banned:
 % In nauseating sauce encanned,
-% All sickly-sweet and liquidous
+% All sickly-sweet and liquidous.
 % The bastards are ubiquitous.
 %
 % An English Breakfast should eschew

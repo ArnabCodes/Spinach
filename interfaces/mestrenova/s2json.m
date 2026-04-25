@@ -3,7 +3,7 @@
 %
 %            s2json(file_name,parameters,fid_matrices)
 %
-% Inputs:
+% Parameters:
 %
 %     file_name    - output file name
 %
@@ -15,6 +15,10 @@
 %
 %     fid          - a structure or a matrix representing
 %                    the free induction decay
+%
+% Outputs:
+%
+%     this function writes a file
 %
 % Notes: for data that only requires a Fourier transform, fid
 %        must be a complex matrix. For 2D States quadrature 

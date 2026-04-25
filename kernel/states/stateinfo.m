@@ -53,7 +53,9 @@ for n=1:npops
             state_string{k}=[' (' num2str(l,'%d') ',' num2str(m,'%+d') ') '];
         end
     end
-    disp([cell2mat(state_string) '    ' num2str(largest_elemts(n),'%+5.3e') '    ' num2str(sorting_index(n))]);
+    report(spin_system,[cell2mat(state_string)              '    ' ...
+                        num2str(largest_elemts(n),'%+5.3e') '    ' ...
+                        num2str(sorting_index(n))]);
 end
 
 end

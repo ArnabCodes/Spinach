@@ -86,7 +86,7 @@ props_c=gparse([own_folder 'norbornene_endo.log']);
 % Replace isotropic shifts 
 inter_c.zeeman.matrix=shift_iso(inter_c.zeeman.matrix,[1 2 3 4 5 6 7 8 9],...
                                [6.262 6.129 2.074 1.263 2.781 3.167 ...
-                           	    2.959 1.133 1.449]);
+                                2.959 1.133 1.449]);
 
 % Create labels
 sys_c.labels={'H10','H11','H14','H15','H13','H12','H16','H17','H18'};
@@ -191,3 +191,4 @@ end
 % Friedrich Nietzsche
 
 % #NGRUM
+

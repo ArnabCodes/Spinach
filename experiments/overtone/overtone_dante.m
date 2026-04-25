@@ -1,10 +1,9 @@
 % Overtone DANTE experiment with frequency-domain acquisition.
+% Syntax:
 %
 %     spectrum=overtone_dante(spin_system,parameters,H,R,K)
 %
-% where H is the Hamiltonian matrix, R is the relaxation matrix
-% and K is the chemical kinetics matrix. The following parameters
-% are required:
+% Parameters:
 %
 %     parameters.pulse_dur - duration of the pulse, seconds
 %
@@ -37,9 +36,15 @@
 %
 %     parameters.coil      - detection state, usually L+
 %
+%     H     - Hamiltonian matrix, received from context function
+%
+%     R     - relaxation superoperator, received from context function
+%
+%     K     - kinetics superoperator, received from context function
+%
 % Outputs:
 %
-%     spectrum            - overtone spectrum
+%     spectrum             - overtone spectrum
 %
 % ilya.kuprov@weizmann.ac.il
 % m.carravetta@soton.ac.uk

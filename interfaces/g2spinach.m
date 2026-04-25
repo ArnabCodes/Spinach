@@ -3,40 +3,41 @@
 %
 %     [sys,inter]=g2spinach(props,nuclei,references,options)
 %
-% where props is the output of gparse and nuclei is a cell array 
-% of the following form:
+% Parameters:
 %
-%                    {{'H','1H'},{'N','15N'}...}
+%    props  - the output of gparse() function
 %
-% giving the list of elements and isotopes that should be imported. 
+%    nuclei - a cell array of the following form:
 %
-% References is a vector of absolute shielding values for your refe-
-% rence substances that are to be placed at zero ppm chemical shift:
-% you need to run separate electronic structure theory calculations
-% for those substances wuth the same method. Absolute isotropic shi-
-% elding values for tetramethylsilane in vacuum are:
+%                       {{'H','1H'},{'N','15N'}...}
+%
+%             giving the list of elements and isotopes that
+%             should be imported. If the isotope list contains
+%             an electron, e.g. {{'E','E'},{'H','1H'}...}, 
+%             then EPR mode is assumed - chemical shielding 
+%             and scalar couplings are ignored, but g-tensor
+%             and hyperfine couplings are included.
+%
+%    references - a vector of absolute shielding values for 
+%                 the reference substances that are to be
+%                 placed at zero ppm chemical shift; you ne-
+%                 ed to run separate electronic structure 
+%                 theory calculations for those substances
+%                 wuth the same method. Absolute isotropic 
+%                 shielding values for tetramethylsilane in
+%                 vacuum are:
 % 
-%   GIAO                  13C       1H 
-%   B3LYP/6-31G*        189.6621  32.1833 
-%   B3LYP/6-311+G(2d,p) 182.4485  31.8201 
-%   HF/6-31G*           199.9711  32.5957 
-%   HF/6-311+G(2d,p)    192.5828  32.0710
+%                  GIAO                  13C       1H 
+%                  B3LYP/6-31G*        189.6621  32.1833 
+%                  B3LYP/6-311+G(2d,p) 182.4485  31.8201 
+%                  HF/6-31G*           199.9711  32.5957 
+%                  HF/6-311+G(2d,p)    192.5828  32.0710
 %
-%   CSGT                  13C       1H 
-%   B3LYP/6-31G*        188.5603  29.1952 
-%   B3LYP/6-311+G(2d,p) 182.1386  31.7788 
-%   HF/6-31G*           196.8670  29.5517 
-%   HF/6-311+G(2d,p)    192.5701  31.5989 
-%
-% If the isotope list contains an electron, e.g.
-%
-%                     {{'E','E'},{'H','1H'}...}
-%
-% then EPR mode is assumed - chemical shielding and scalar couplings
-% are ignored, but g-tensor and hyperfine couplings are included. A
-% spin-1/2 electron is assumed in this case.
-%
-% The following options are currently available:
+%                  CSGT                  13C       1H 
+%                  B3LYP/6-31G*        188.5603  29.1952 
+%                  B3LYP/6-311+G(2d,p) 182.1386  31.7788 
+%                  HF/6-31G*           196.8670  29.5517 
+%                  HF/6-311+G(2d,p)    192.5701  31.5989 
 %
 %     options.min_j    -  scalar coupling threshold in Hz. J-coup-
 %                         lings smaller than this value will be 
@@ -55,8 +56,7 @@
 %                         nore the coordinate information and
 %                         only keep the interaction tensors
 %
-% The following parameters are returned if the corresponding informa-
-% tion is found in the input:
+% Outputs:
 %
 %     sys.isotopes           Nspins x 1 cell array of strings
 %
@@ -272,10 +272,13 @@ if (~isnumeric(references))||(numel(nuclei)~=numel(references))
 end
 end
 
-% ACHTUNG! ALLES LOOKENSPEEPERS
+% ACHTUNG! ALLES NONTECHNISCHEN LOOKENSPEEPERS!
 % Das Computermachine ist nicht fur gefingerpoken und mittengrabben.
 % Ist easy schnappen der Springenwerk, blowenfusen und poppencorken
 % mit Spitzensparken. Ist nicht fur gewerken bei das Dumpkopfen. Die
 % rubbernecken Sichtseeren keepen Hands in die Pockets muss, relaxen
 % und watchen die Blinkenlichten.
+%
+% A sign, first reported in 1955
+% at an IBM computing facility
 

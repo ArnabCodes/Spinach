@@ -67,7 +67,8 @@ R=relaxation(spin_system);
 rho_eq=equilibrium(spin_system,hamiltonian(assume(spin_system,'labframe'),'left'));
 
 % Get the averaging grid
-sph_grid=load([spin_system.sys.root_dir '/kernel/grids/' parameters.grid '.mat']);
+sph_grid=load([spin_system.sys.root_dir filesep 'kernel' filesep 'grids' ...
+                                        filesep parameters.grid '.mat']);
 
 % Shut up and inform the user
 report(spin_system,['powder average being computed over ' ...

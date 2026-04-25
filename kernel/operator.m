@@ -3,11 +3,11 @@
 %
 %        A=operator(spin_system,operators,spins,operator_type,format)
 %
-% This function supports three types of calls:
+% Parameters:
 %
 % 1. If operators is a string and spins is a string
 %
-%	                    operators='Lz'; spins='13C';
+%                      operators='Lz'; spins='13C';
 %
 % the function returns the sum of the corresponding single-spin operators 
 % (Hilbert space) or superoperators (Liouville space) on all spins of that

@@ -3,7 +3,11 @@
 %
 %    [aa_num,aa_typ,pdb_id,chemsh]=read_bmrb(bmrb_file_name)
 %
-% Output parameters:
+% Parameters:
+%
+%       bmrb_file_name - a character string with the file name
+%
+% Outputs:
 %
 %       aa_num - amino acid numbers, vector
 %

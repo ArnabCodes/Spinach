@@ -1,9 +1,16 @@
 % Returns a unit object of the same type as whatever is supplied.
+% Syntax:
 %
 %                         A=unit_like(A)
 %
-% Full square matrices, sparse matrices and tensor train represen-
-% tations of square matrices are supported.
+% Parameters:
+%
+%    A - a full or sparse square matrix, or a tensor train
+%        representation of a square matrix
+%
+% Outputs:
+%
+%    A - a unit matrix in the same format
 %
 % ilya.kuprov@weizmann.ac.il
 %

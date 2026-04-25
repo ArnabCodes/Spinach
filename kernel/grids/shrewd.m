@@ -22,7 +22,7 @@
 %   max_error - maximum residual absolute error per spheri-
 %               cal function
 %
-% Outputs
+% Outputs:
 %
 %     weights - a vector of grid weights for each 
 %               [alpha beta gamma] point supplied.
