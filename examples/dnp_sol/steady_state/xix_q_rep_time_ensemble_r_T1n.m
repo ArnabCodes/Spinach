@@ -1,5 +1,6 @@
-% Simulation of T2n dependent XiX DNP optimization of repetition time in 
-% the steady state with electron-proton distance ensemble.
+% Simulation of T1n dependent XiX DNP optimisation of 
+% repetition time in the steady state with electron-
+% proton distance ensemble.
 % 
 % Calculation time: minutes
 % 
@@ -7,21 +8,32 @@
 % guinevere.mathies@uni-konstanz.de
 % ilya.kuprov@weizmann.ac.il
 
-close all
+function xix_q_rep_time_ensemble_r_T1n()
 
-T2n=[20e-3 2e-3 200e-6 20e-6 2e-6];
-Color={'#D95319' '#EDB120' '#77AC30' '#000000' '#0072BD'};
+% Nuclear relaxation times, seconds
+T1n=[50.0 5.0 0.500 0.050 0.005];
 
-for j=1:numel(T2n)
-    col=char(Color(j));
-    xix_rep_time_ensemble_r(T2n(j),col)
-    legend('20 ms','2 ms','200 \mus','20 \mus','2 \mus','location','southeast')
+% Get the figure started
+kfigure(); hold on; kgrid;
+kxlabel('XiX repetition time (ms)');
+kylabel('$\langle I_Z \rangle _{\infty}$');
+xlim([0 1]); ylim([-0.01e-3 0.7e-3]);
+
+% Plot the curves
+for n=1:numel(T1n)
+    xix_rep_time_ensemble_r(T1n(n));
 end
 
-savefig(gcf,'xix_rep_time_ensemble_r_T2n.fig');
+% Add the legend and save the plot
+klegend({'$T_{1n}$ = 50 s', '$T_{1n}$ = 5 s',...
+         '$T_{1n}$ = 0.5 s','$T_{1n}$ = 0.05 s',...
+         '$T_{1n}$ = 0.005 s'},'Location','NorthEast');
+savefig(gcf,'xix_q_rep_time_ensemble_r_T1n.fig');
 
-% Simulation for a specific T2n
-function xix_rep_time_ensemble_r(T2n,col)
+end
+
+% Simulation for a specific T1n
+function xix_rep_time_ensemble_r(T1n)
 
 % Q-band magnet
 sys.magnet=1.2142;
@@ -65,10 +77,8 @@ for n=1:numel(r)
     % Relaxation rates, distance and orientation 
     % dependence provided using a function handle
     inter.relaxation={'t1_t2'};
-    r1n_rate=@(alp,bet,gam)r1n_dnp(sys.magnet,inter.temperature,...
-                                   2.00230,1e-3,52,r(n),bet);
-    inter.r1_rates={1e3 r1n_rate};
-    inter.r2_rates={200e3 1/T2n};
+    inter.r1_rates={1e3 1/T1n};
+    inter.r2_rates={200e3 50e3};
     inter.rlx_keep='diagonal';
     inter.equilibrium='dibari';
     
@@ -81,16 +91,16 @@ for n=1:numel(r)
 
     % Experiment parameters
     parameters.spins={'E','1H'};
-    parameters.irr_powers=18e6;            % Electron nutation frequency [Hz]
+    parameters.irr_powers=18e6;              % Electron nutation frequency [Hz]
     parameters.grid='rep_2ang_800pts_sph';
     parameters.pulse_dur=48e-9;              % Pulse duration, seconds
-    parameters.nloops=36;                    % Number of XiX DNP blocks (power of 2)
+    parameters.nloops=36;                    % Number of XiX DNP blocks
     parameters.phase=pi;                     % Second pulse inverted phase
     parameters.addshift=-13e6;
     parameters.el_offs=-39e6;
 
     % Over repetition times
-    parfor m=1:numel(rep_time)
+    for m=1:numel(rep_time)
 
         % Localise parameters
         localpar=parameters;
@@ -109,16 +119,8 @@ end
 % Integrate over the distance distribution, r^2 is the Jacobian
 dnp=sum(dnp.*reshape(r.^2,[1 numel(r)]).*reshape(wr,[1 numel(wr)]),2)/sum((r.^2).*wr);
 
-% Plotting 
-figure(1); plot(rep_time*1e3,-real(dnp),'color',col,'LineWidth',1.5);
-xlabel('Repetition time (ms)');
-ylabel('\langle I_Z \rangle');
-grid on; xlim([0 2]); ylim([0 1e-3]); hold on
-
-ax=gca;
-ax.FontSize=14;
-ax.LineWidth=1.2;
-set(gca,'XMinorTick','on','YMinorTick','on');
+% Update the figure
+plot(1e3*rep_time,-real(dnp)); drawnow();
 
 end
 

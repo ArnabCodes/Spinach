@@ -96,7 +96,7 @@ for n=1:numel(r)
     parameters.grid='rep_2ang_800pts_sph';
     parameters.pulse_dur=10e-9;              % Pulse duration, seconds
     parameters.delay_dur=14e-9;              % Delay duration, seconds
-    parameters.nloops=300;                   % Number of TOP DNP blocks (power of 2)     
+    parameters.nloops=300;                   % Number of TOP DNP blocks   
     parameters.addshift=-13e6;
     parameters.el_offs=offsets;
 

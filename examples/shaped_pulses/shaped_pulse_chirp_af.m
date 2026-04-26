@@ -55,20 +55,20 @@ K=kinetics(spin_system);
 Lx=operator(spin_system,'Lx','1H');
 Ly=operator(spin_system,'Ly','1H');
 
-% Chirp waveform in amplitude-frequency coordinates
+% WURST chirp waveform in amplitude-frequency coordinates
 [~,~,durs,~,amps,~,frqs]=chirp_pulse(100,0.1,2000,16,'wurst');
 
 % Chirp frequency shift
 frqs=frqs+1000;
 
-% Soft pulse
+% Soft pulse in amplitude-frequency coordinates
 parameters.rho0=shaped_pulse_af(spin_system,H,Lx,Ly,parameters.rho0,...
                                 frqs,amps,durs,pi/2,2);
                             
-% Homospoil
+% Homospoil gradient to kill stray transverse magnetisation
 parameters.rho0=homospoil(spin_system,parameters.rho0,'destroy');
 
-% Global hard pulse
+% Global hard pulse to detect longitudinal magnetisation
 parameters.rho0=step(spin_system,Ly,parameters.rho0,pi/2);
 
 % Acquisition

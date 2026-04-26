@@ -1,4 +1,4 @@
-% Simulation of T1e dependent XiX DNP optimisation of 
+% Simulation of T2n dependent XiX DNP optimisation of 
 % repetition time in the steady state with electron-
 % proton distance ensemble.
 % 
@@ -8,32 +8,32 @@
 % guinevere.mathies@uni-konstanz.de
 % ilya.kuprov@weizmann.ac.il
 
-function xix_q_rep_time_ensemble_r_T1e()
+function xix_q_rep_time_ensemble_r_T2n()
 
-% Electron relaxation times to use, seconds
-T1e=[10e-3, 3.0e-3, 1.0e-3, 0.3e-3, 0.1e-3];
+% Nuclear relaxation times, seconds
+T2n=[20e-3 2e-3 200e-6 20e-6 2e-6];
 
 % Get the figure started
 kfigure(); hold on; kgrid;
 kxlabel('XiX repetition time (ms)');
 kylabel('$\langle I_Z \rangle _{\infty}$');
-xlim([0 1]); ylim([0 1.6e-3]);
+xlim([0 1]); ylim([0 0.8e-3]);
 
 % Plot the curves
-for n=1:numel(T1e)
-    xix_rep_time_ensemble_r(T1e(n));
+for n=1:numel(T2n)
+    xix_rep_time_ensemble_r(T2n(n))
 end
 
 % Add the legend and save the plot
-klegend({'$T_{1e}$ = 10 ms', '$T_{1e}$ = 3.0 ms',...
-         '$T_{1e}$ = 1.0 ms','$T_{1e}$ = 0.3 ms',...
-         '$T_{1e}$ = 0.1 ms'},'Location','NorthEast');
-savefig(gcf,'xix_q_rep_time_ensemble_r_T1e.fig');
+klegend({'$T_{2n}$ = 2000 $\mu$s', '$T_{2n}$ = 200 $\mu$s',...
+         '$T_{2n}$ = 20 $\mu$s','$T_{2n}$ = 2 $\mu$s',...
+         '$T_{2n}$ = 0.2 $\mu$s'},'Location','SouthEast');
+savefig(gcf,'xix_q_rep_time_ensemble_r_T2n.fig');
 
 end
 
-% Simulation for a specific T1e
-function xix_rep_time_ensemble_r(T1e)
+% Simulation for a specific T2n
+function xix_rep_time_ensemble_r(T2n)
 
 % Q-band magnet
 sys.magnet=1.2142;
@@ -79,8 +79,8 @@ for n=1:numel(r)
     inter.relaxation={'t1_t2'};
     r1n_rate=@(alp,bet,gam)r1n_dnp(sys.magnet,inter.temperature,...
                                    2.00230,1e-3,52,r(n),bet);
-    inter.r1_rates={1/T1e r1n_rate};
-    inter.r2_rates={200e3 50e3};
+    inter.r1_rates={1e3 r1n_rate};
+    inter.r2_rates={200e3 1/T2n};
     inter.rlx_keep='diagonal';
     inter.equilibrium='dibari';
     
@@ -102,7 +102,7 @@ for n=1:numel(r)
     parameters.el_offs=-39e6;
 
     % Over repetition times
-    parfor m=1:numel(rep_time)
+    for m=1:numel(rep_time)
 
         % Localise parameters
         localpar=parameters;
