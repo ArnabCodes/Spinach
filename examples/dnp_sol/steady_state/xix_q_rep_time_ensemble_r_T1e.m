@@ -102,7 +102,7 @@ for n=1:numel(r)
     parameters.el_offs=-39e6;
 
     % Over repetition times
-    parfor m=1:numel(rep_time)
+    for m=1:numel(rep_time)
 
         % Localise parameters
         localpar=parameters;

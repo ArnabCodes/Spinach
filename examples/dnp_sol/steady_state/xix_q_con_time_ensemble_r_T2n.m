@@ -1,4 +1,4 @@
-% Simulation of T1n dependence of XiX DNP contact 
+% Simulation of T2n dependence of XiX DNP contact 
 % curves in the steady state with electron-proton
 % distance ensemble.
 % 
@@ -101,7 +101,7 @@ for n=1:numel(r)
     parameters.el_offs=61e6;
    
     % Over loop counts
-    parfor m=1:numel(loop_counts)
+    for m=1:numel(loop_counts)
 
         % Localise parameters
         localpar=parameters;

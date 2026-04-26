@@ -17,7 +17,7 @@ T2e=[50e-6 15e-6 5e-6 1.5e-6 0.5e-6];
 kfigure(); hold on; kgrid;
 kxlabel('Repetition time (ms)');
 kylabel('$\langle I_Z \rangle _{\infty}$');
-xlim tight; ylim([0 2e-3]);
+xlim([0 1]); ylim([0 1.3e-3]);
 
 % Plot the curves
 for n=1:numel(T2e)
@@ -94,7 +94,7 @@ for n=1:numel(r)
     % Experiment parameters
     parameters.spins={'E','1H'};
     parameters.irr_powers=18e6;              % Electron nutation frequency [Hz]
-    parameters.grid='rep_2ang_800pts_oct';
+    parameters.grid='rep_2ang_800pts_sph';
     parameters.pulse_dur=48e-9;              % Pulse duration, seconds
     parameters.nloops=36;                    % Number of XiX DNP blocks
     parameters.phase=pi;                     % Second pulse inverted phase
@@ -102,7 +102,7 @@ for n=1:numel(r)
     parameters.el_offs=-39e6;
 
     % Over repetition times
-    parfor m=1:numel(rep_time)
+    for m=1:numel(rep_time)
 
         % Localise parameters
         localpar=parameters;

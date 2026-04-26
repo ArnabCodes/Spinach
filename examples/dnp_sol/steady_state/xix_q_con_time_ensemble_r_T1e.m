@@ -101,7 +101,7 @@ for n=1:numel(r)
     parameters.el_offs=61e6;
    
     % Over loop counts
-    parfor m=1:numel(loop_counts)
+    for m=1:numel(loop_counts)
 
         % Localise parameters
         localpar=parameters;

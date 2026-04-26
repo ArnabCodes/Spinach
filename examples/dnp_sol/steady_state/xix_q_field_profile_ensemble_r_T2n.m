@@ -11,7 +11,7 @@
 function xix_q_field_profile_ensemble_r_T2n()
 
 % Nuclear relaxation times, seconds
-T2n=[20e-3 2e-3 200e-6 20e-6 2e-6];
+T2n=[2e-3 200e-6 20e-6 2e-6 0.2e-6];
 
 % Get the figure started
 kfigure(); hold on; kgrid;
@@ -86,7 +86,7 @@ for n=1:numel(r)
     spin_system=basis(spin_system,bas);
 
     % Detect the proton
-    parameters.coil=state(spin_system,'Lz',2);
+    parameters.coil=state(spin_system,'Lz','1H');
 
     % Experiment parameters
     parameters.spins={'E','1H'};

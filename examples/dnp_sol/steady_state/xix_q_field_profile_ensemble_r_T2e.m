@@ -1,8 +1,8 @@
-% Simulation of T1e dependence of XiX DNP field
+% Simulation of T2e dependence of XiX DNP field
 % profiles in the steady state with electron-proton
 % distance ensemble.
 % 
-% Calculation time: seconds
+% Calculation time: minutes
 % 
 % shebha-anandhi.jegadeesan@uni-konstanz.de
 % guinevere.mathies@uni-konstanz.de
@@ -86,7 +86,7 @@ for n=1:numel(r)
     spin_system=basis(spin_system,bas);
 
     % Detect the proton
-    parameters.coil=state(spin_system,'Lz',2);
+    parameters.coil=state(spin_system,'Lz','1H');
 
     % Experiment parameters
     parameters.spins={'E','1H'};

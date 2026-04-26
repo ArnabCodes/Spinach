@@ -11,7 +11,7 @@
 function xix_q_rep_time_ensemble_r_T2n()
 
 % Nuclear relaxation times, seconds
-T2n=[20e-3 2e-3 200e-6 20e-6 2e-6];
+T2n=[2e-3 200e-6 20e-6 2e-6 0.2e-6];
 
 % Get the figure started
 kfigure(); hold on; kgrid;
