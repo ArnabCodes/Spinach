@@ -24,7 +24,7 @@ sys.isotopes={'13C','13C','13C','1H','1H','1H','1H'};
 sys.labels={'CO','CA','CB','HA','HB1','HB2','HB3'};
 
 % Chemical shifts (approximate)
-inter.zeeman.scalar=[182.0 68.4 20.6 4.0 1.2 1.2 1.2];
+inter.zeeman.scalar={182.0 68.4 20.6 4.0 1.2 1.2 1.2};
 
 % J-couplings (very approximate)
 inter.coupling.scalar=cell(7,7);
@@ -50,6 +50,7 @@ inter.coupling.scalar{idxof(sys,'HA'),idxof(sys,'HB3')}=6.9;
 % Prune the arrays 
 mask=ismember(sys.isotopes,spins);
 sys.isotopes=sys.isotopes(mask);
+sys.labels=sys.labels(mask);
 inter.zeeman.scalar=inter.zeeman.scalar(mask);
 inter.coupling.scalar=inter.coupling.scalar(mask,mask);
 
