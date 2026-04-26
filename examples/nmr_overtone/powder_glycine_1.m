@@ -12,7 +12,7 @@
 
 function powder_glycine_1()
 
-% System specification, TODO: add CSA
+% System specification
 sys.magnet=14.1; sys.isotopes={'14N'};
 inter.coupling.matrix{1,1}=eeqq2nqi(1.18e6,0.53,1,[0 0 0]);
 inter.zeeman.scalar{1}=32.4;

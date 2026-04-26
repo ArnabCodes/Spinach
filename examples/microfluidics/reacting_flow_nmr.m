@@ -1,4 +1,4 @@
-% Complete microfuidic simulation: diffusion, flow, two second-
+% Complete microfluidic simulation: diffusion, flow, two second-
 % order chemical reactions, and NMR detection in a narrow strip
 % of the chip where the coil is assumed to be located.
 %
@@ -52,7 +52,7 @@ K=@(x)([-k1*x(2)-k2*x(2)  0                0      0     0;
          0                k2*x(1)          0      0     0; 
          0                0                0      0     0]);  
 
-% Strong diffusion (TODO: needs to be different for each substance)
+% Strong diffusion
 parameters.diff=1e-7;
 
 % Timing parameters
@@ -61,7 +61,7 @@ chem_dt=20; chem_nsteps=501;
 % Get diffusion and flow generator
 GF=flow_gen(spin_system,parameters);
 
-% Concentratoin trajectory preallocation and the initial state
+% Concentration trajectory preallocation and the initial state
 chem_traj=zeros(5,spin_system.mesh.vor.ncells,chem_nsteps+1);
 chem_traj(1,1240,1)=0.50; chem_traj(2,1246,1)=0.25;
 
@@ -96,9 +96,9 @@ A=cell(spin_system.mesh.vor.ncells,1); B=cell(spin_system.mesh.vor.ncells,1);
 C=cell(spin_system.mesh.vor.ncells,1); D=cell(spin_system.mesh.vor.ncells,1);
 parfor n=1:spin_system.mesh.vor.ncells
     A{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(1,n,:)),'makima','none');
-    B{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(1,n,:)),'makima','none');
-    C{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(1,n,:)),'makima','none');
-    D{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(1,n,:)),'makima','none');
+    B{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(2,n,:)),'makima','none');
+    C{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(3,n,:)),'makima','none');
+    D{n}=griddedInterpolant(chem_time_grid,squeeze(chem_traj(4,n,:)),'makima','none');
 end
 
 %% Full chemistry + hydrodynamics + spin dynamics stage
@@ -150,7 +150,7 @@ LzB=state(spin_system,'Lz',spin_system.chem.parts{2});
 LzC=state(spin_system,'Lz',spin_system.chem.parts{3});
 LzD=state(spin_system,'Lz',spin_system.chem.parts{4});
 
-% Preallocate fieds array
+% Preallocate fids array
 fids=cell(chem_nsteps,1);
 
 % Parfor prep

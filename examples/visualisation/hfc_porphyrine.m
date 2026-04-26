@@ -6,7 +6,7 @@
 
 function hfc_porphyrine()
     
-% Read the Gaussian log
+% Read the ORCA log
 props=oparse('porphyrine.out');
 
 % Do the visualisation

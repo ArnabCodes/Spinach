@@ -79,7 +79,7 @@ inter.giant.coeff={{[0 0 0],SBkq{2},...
 inter.giant.euler={{[0 0 0],[0 0 0],[0 0 0],...
                     [0 0 0],[0 0 0],[0 0 0]},{}};
 
-% Cartesian coodinates
+% Cartesian coordinates
 inter.coordinates={[0.00 0.00 0.00];
                    [0.00 5.00 7.00]};
                

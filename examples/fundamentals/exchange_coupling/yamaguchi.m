@@ -1,6 +1,6 @@
 % Yamaguchi equation estimate of exchange coupling from
 % a broken-symmetry DFT calculation on a bistrityl bira-
-% dical with an alkinyl linker from Olav Schiemann.
+% dical with an alkynyl linker from Olav Schiemann.
 %
 % ilya.kuprov@weizmann.ac.il
 
