@@ -2,7 +2,7 @@
 %
 % Calculation time: seconds
 %
-% Bud Macaulay
+% bud.macaulay@soton.ac.uk
 % ilya.kuprov@weizmann.ac.il
 
 function hmbc_cyprinol()
