@@ -82,11 +82,11 @@ for k=1:numel(grid_sizes)
     
     % Initial state - Gaussian in the middle
     parameters.rho0_ph={exp(-linspace(-10,10,parameters.npts).^2)'};
-    parameters.rho0_st={state(spin_system,'Lz','1H','cheap')};
+    parameters.rho0_st={state(spin_system,'Lz','1H')};
     
     % Detection state - uniform across sample
     parameters.coil_ph={ones(parameters.npts,1)};
-    parameters.coil_st={state(spin_system,'L+','1H','cheap')};
+    parameters.coil_st={state(spin_system,'L+','1H')};
     
     % Hush the reporting
     report(spin_system,'Spinach output hushed.');

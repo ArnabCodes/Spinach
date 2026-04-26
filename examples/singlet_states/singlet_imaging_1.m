@@ -60,9 +60,9 @@ tube=zeros(parameters.npts); tube(:,6:10)=1;
 
 % Initial and detection state phantoms
 parameters.rho0_ph={tube};
-parameters.rho0_st={state(spin_system,'Lz','13C','cheap')};
+parameters.rho0_st={state(spin_system,'Lz','13C')};
 parameters.coil_ph={tube};
-parameters.coil_st={state(spin_system,'L+','13C','cheap')};
+parameters.coil_st={state(spin_system,'L+','13C')};
 
 % Diffusion and flow
 parameters.u=-6e-2*ones(parameters.npts);

@@ -47,9 +47,9 @@ parameters.rlx_op={};
 
 % White margins on the initial condition
 parameters.rho0_ph={[zeros(1000,1); ones(2000,1); zeros(1000,1)]};                                                                                            
-parameters.rho0_st={state(spin_system,'Lz','1H','cheap')};
+parameters.rho0_st={state(spin_system,'Lz','1H')};
 parameters.coil_ph={ones(parameters.npts,1)};
-parameters.coil_st={state(spin_system,'L+','1H','cheap')};
+parameters.coil_st={state(spin_system,'L+','1H')};
 
 % Sequence parameters
 parameters.spins={'1H'};                % Working spins

@@ -56,9 +56,9 @@ parameters.rlx_op={relaxation(spin_system)};
 
 % Initial and detection state phantoms
 parameters.rho0_ph={ones(parameters.npts,1)};
-parameters.rho0_st={state(spin_system,'Lz','1H','cheap')};
+parameters.rho0_st={state(spin_system,'Lz','1H')};
 parameters.coil_ph={ones(parameters.npts,1)};
-parameters.coil_st={state(spin_system,'L-','1H','cheap')};
+parameters.coil_st={state(spin_system,'L-','1H')};
 
 % Diffusion
 parameters.diff=18.55e-10;       % m^2/s

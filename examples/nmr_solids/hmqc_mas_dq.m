@@ -42,9 +42,9 @@ parameters.zerofill=[1024 512];
 parameters.spins={'14N','1H'};
 parameters.rframes={{'14N',3}};
 parameters.axis_units='ppm';
-parameters.rho0=state(spin_system,'L+',parameters.spins{2},'cheap')+...
-                state(spin_system,'L-',parameters.spins{2},'cheap');
-parameters.coil=state(spin_system,'L+',parameters.spins{2},'cheap');
+parameters.rho0=state(spin_system,'L+',parameters.spins{2})+...
+                state(spin_system,'L-',parameters.spins{2});
+parameters.coil=state(spin_system,'L+',parameters.spins{2});
 parameters.rf_pwr=40e3;
 parameters.rf_dur=2e-3;
 

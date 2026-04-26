@@ -117,7 +117,7 @@ parameters.tmix=2.0;
 parameters.npoints=[256 256];
 parameters.zerofill=[1024 1024];
 parameters.axis_units='ppm';
-parameters.rho0=state(spin_system,'Lz','1H','cheap');
+parameters.rho0=state(spin_system,'Lz','1H');
 
 % Simulation
 fid=liquid(spin_system,@noesy,parameters,'nmr');

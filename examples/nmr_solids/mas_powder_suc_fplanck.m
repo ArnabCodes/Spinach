@@ -38,8 +38,8 @@ parameters.zerofill=1024;
 parameters.offset=15000;
 parameters.spins={'13C'};
 parameters.grid='leb_2ang_rank_23';
-parameters.rho0=state(spin_system,'L+','13C','cheap');
-parameters.coil=state(spin_system,'L+','13C','cheap');
+parameters.rho0=state(spin_system,'L+','13C');
+parameters.coil=state(spin_system,'L+','13C');
 parameters.verbose=1;
 
 %% Simulation
