@@ -1,5 +1,6 @@
-% Simulation of T2n dependent XiX DNP field profiles in the steady state 
-% with electron-proton distance ensemble.
+% Simulation of T2n dependence of XiX DNP field 
+% profiles in the steady state with electron-
+% proton distance ensemble.
 % 
 % Calculation time: minutes
 % 
@@ -7,22 +8,32 @@
 % guinevere.mathies@uni-konstanz.de
 % ilya.kuprov@weizmann.ac.il
 
-close all
+function xix_q_field_profile_ensemble_r_T2n()
 
+% Nuclear relaxation times, seconds
 T2n=[20e-3 2e-3 200e-6 20e-6 2e-6];
-Color={'#D95319' '#EDB120' '#77AC30' '#000000' '#0072BD'};
 
-for j=1:numel(T2n)
-    col=char(Color(j));
-    xix_field_profile_ensemble_r(T2n(j),col)
-    legend('20 ms','2 ms','200 \mus','20 \mus','2 \mus','location','southeast')
+% Get the figure started
+kfigure(); hold on; kgrid;
+kxlabel('Microwave resonance offset, MHz'); 
+kylabel('$\langle I_Z \rangle _{\infty}$');
+xlim tight; ylim([-1.3e-3 1.3e-3]);
+
+% Plot the curves
+for n=1:numel(T2n)
+    xix_field_profile_ensemble_r(T2n(n));
 end
 
-% Save figure
-savefig(gcf,'xix_field_profile_ensemble_r_T2n.fig');
+% Add the legend and save the plot
+klegend({'$T_{2n}$ = 2000 $\mu$s', '$T_{2n}$ = 200 $\mu$s',...
+         '$T_{2n}$ = 20 $\mu$s','$T_{2n}$ = 2 $\mu$s',...
+         '$T_{2n}$ = 0.2 $\mu$s'},'Location','SouthEast');
+savefig(gcf,'xix_q_field_profile_ensemble_r_T2n.fig');
+
+end
 
 % Simulation for a specific T2n
-function xix_field_profile_ensemble_r(T2n,col)
+function xix_field_profile_ensemble_r(T2n)
 
 % Q-band magnet
 sys.magnet=1.2142;
@@ -79,7 +90,7 @@ for n=1:numel(r)
 
     % Experiment parameters
     parameters.spins={'E','1H'};
-    parameters.irr_powers=18e6;            % Electron nutation frequency [Hz]
+    parameters.irr_powers=18e6;              % Electron nutation frequency [Hz]
     parameters.grid='rep_2ang_800pts_sph';
     parameters.pulse_dur=48e-9;              % Pulse duration, seconds
     parameters.nloops=36;                    % Number of XiX DNP blocks (power of 2)
@@ -99,15 +110,7 @@ end
 dnp=sum(dnp.*reshape(r.^2,[1 numel(r)]).*reshape(w,[1 numel(w)]),2)/sum((r.^2).*w);
 
 % Plotting 
-figure(1); plot(parameters.el_offs/1e6,real(dnp),'color',col,'LineWidth',1.5); 
-xlabel('\Omega/2\pi (MHz)');
-ylabel('\langle I_Z \rangle');
-grid on; xlim tight; ylim([-1.5e-3 1.5e-3]); hold on
-
-ax=gca;
-ax.FontSize=14;
-ax.LineWidth=1.2;
-set(gca,'XMinorTick','on','YMinorTick','on');
+plot(parameters.el_offs/1e6,real(dnp)); drawnow;
 
 end
 
