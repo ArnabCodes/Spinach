@@ -1,8 +1,8 @@
-% Benchmarks Lie-group product quadratures on a chirped-frequency oscillator
+% Benchmarks iserstep higher-order methods on a chirped-frequency oscillator
 % with radiation damping, that has a state-dependent, and a time-dependent
 % evolution generator. Syntax:
 %
-%               product_quadratures_2_rkmk()
+%               iserstep_bench_hiord()
 %
 % Outputs:
 %
@@ -11,9 +11,9 @@
 %
 % a.acharya@weizmann.ac.il
 %
-% <https://spindynamics.org/wiki/index.php?title=product_quadratures_2_rkmk.m>
+% <https://spindynamics.org/wiki/index.php?title=iserstep_bench_hiord.m>
 
-function product_quadratures_2_rkmk()
+function iserstep_bench_hiord()
 
 % Set the chirp rate
 cr=2*pi*400;
@@ -226,6 +226,5 @@ fun();
 t_sec=toc();
 
 end
-
 
 
