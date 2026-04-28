@@ -58,9 +58,8 @@ mu_ref=mu_traj(:,end);
 % Set the benchmark grid sizes
 np=ceil(2.^linspace(8,10.5,10));
 
-% Preallocate the accuracy and runtime arrays
+% Preallocate the accuracy array
 bench=zeros(numel(np),7);
-time_bench=zeros(numel(np),7);
 
 % Benchmarking loop
 for k=1:numel(np)
@@ -70,55 +69,48 @@ for k=1:numel(np)
 
     % Run PWCL propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'PWCL',false);
-    time_bench(k,1)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'PWCL',false));
     bench(k,1)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run LG2 propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'LG2',false);
-    time_bench(k,2)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'LG2',false));
     bench(k,2)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run LG4 propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'LG4',false);
-    time_bench(k,3)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'LG4',false));
     bench(k,3)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run LG4A propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'LG4A',false);
-    time_bench(k,4)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'LG4A',false));
     bench(k,4)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run RKMK4 propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'RKMK4',true);
-    time_bench(k,5)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'RKMK4',true));
     bench(k,5)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run RKMK-DP5 propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'RKMK-DP5',true);
-    time_bench(k,6)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'RKMK-DP5',true));
     bench(k,6)=norm(mu-mu_ref)/norm(mu_ref);
 
 
     % Run RKMK-DP8 propagation and time it
     mu=run_method(spin_system,G,mu0,dt,np(k),'RKMK-DP8',true);
-    time_bench(k,7)=bench_time(@()run_method(spin_system,G,mu0,dt,np(k),'RKMK-DP8',true));
     bench(k,7)=norm(mu-mu_ref)/norm(mu_ref);
 
 end
 
 % Plot the reference trajectory
-kfigure(); scale_figure([1.8 1.2]);
+kfigure(); scale_figure([1.8 0.6]);
 
 % Make the reference time axis
 time_axis=linspace(0,0.5,np_ref);
 
 % Plot the reference trajectory
-subplot(2,2,[1 2]);
+subplot(1,2,1);
 plot(time_axis,mu_traj);
 kgrid; xlim tight; ylim padded;
 kxlabel('time, seconds');
@@ -127,35 +119,16 @@ klegend({'x-magnetisation','y-magnetisation',...
          'z-magnetisation'},'Location','SouthEast');
 
 % Plot error against the grid size
-subplot(2,2,3);
+subplot(1,2,2);
 plot(np',bench);
 kgrid; xlim tight; ylim([1e-7 1e0]);
 set(gca,'YScale','log','XScale','log');
 kxlabel('number of points in the time grid');
-kylabel('$\\|$difference$\\|$/$\\|$exact$\\|$');
+kylabel('relative error');
 klegend({'LP','LG-2','LG-4','LG-4A',...
          'RKMK4','RKMK-DP5','RKMK-DP8'},...
         'Location','SouthWest');
 set(gca,'YTick',10.^(-7:2:0));
-set(gca,'MinorGridLineStyle','-');
-set(gca,'MinorGridColor',0.9*[1 1 1]);
-set(gca,'GridColor',0.9*[1 1 1]);
-
-% Plot error against runtime
-subplot(2,2,4);
-hold on;
-kgrid; xlim tight; ylim padded;
-set(gca,'XScale','log','YScale','log');
-col=get(gca,'ColorOrder');
-for n=1:7
-    [t_sort,idx]=sort(time_bench(:,n));
-    loglog(t_sort,bench(idx,n),'-','Color',col(n,:),'LineWidth',1.5);
-end
-kxlabel('runtime, seconds');
-kylabel('$\\|$difference$\\|$/$\\|$exact$\\|$');
-klegend({'LP','LG-2','LG-4','LG-4A',...
-         'RKMK4','RKMK-DP5','RKMK-DP8'},...
-        'Location','SouthWest');
 set(gca,'MinorGridLineStyle','-');
 set(gca,'MinorGridColor',0.9*[1 1 1]);
 set(gca,'GridColor',0.9*[1 1 1]);
@@ -216,15 +189,3 @@ for n=2:np
 end
 
 end
-
-% Benchmarks a zero-argument function handle
-function t_sec=bench_time(fun)
-
-fun();
-tic;
-fun();
-t_sec=toc();
-
-end
-
-
